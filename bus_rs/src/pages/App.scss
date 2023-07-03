@@ -1,0 +1,29 @@
+body {
+    margin:0.5em 0;
+  }
+  
+  nav {
+    background-color:#ccc;
+    overflow:hidden;
+    scroll-behavior:smooth;
+    .container {
+      height:calc(3em + 4px);
+    display: flex;
+    li{
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+        a {
+          border:solid 1px transparent;
+          padding:1em;
+          letter-spacing: normal;
+          list-style: none;
+          text-decoration: none;
+          color: #000;
+          :hover{
+            color: #FFf;
+          }
+        }
+    }
+  }
+ 

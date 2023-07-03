@@ -1,0 +1,32 @@
+.both{
+    display: flex;
+    margin: 0em;
+    margin-left: 0em;
+.right, .left{
+    input, select, label{
+        position: relative;
+        font-family: 'Helvetica', serif;
+        width: 18em;
+        font-size: 20px;
+        padding: 12px 10px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    input, select{
+        margin-left: -6em;
+        border-radius: 2%;
+    }
+    select{
+        width: 59%;
+    }
+    
+}
+.right{
+    margin-left: -8em;
+}
+}
+#submitDetails{
+    background-color: rgb(114, 63, 18);
+    color: #fdfcfc;
+}
