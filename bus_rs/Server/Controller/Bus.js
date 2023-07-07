@@ -44,13 +44,13 @@ export const createBus = (req, res) => {
     Bus.find({ plateNumber: req.body.plateNumber }).exec()
         .then(function (bus) {
             if (bus.length !== 0) {
-                console.log("Bus with plate number " + req.body.plateNumber + " already exist")
+                res.send("Bus with plate number " + req.body.plateNumber + " already exist")
             }
             else {
                 Bus.find({ busNumber: req.body.busNumber }).exec()
                     .then(function (bus) {
                         if (bus.length !== 0) {
-                            console.log("Bus with bus number " + req.body.busNumber + " already exist")
+                            res.send("Bus with bus number " + req.body.busNumber + " already exist")
                         }
                         else {
                             var bus = new Bus({

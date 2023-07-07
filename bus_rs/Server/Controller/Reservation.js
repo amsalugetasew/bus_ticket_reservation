@@ -54,12 +54,19 @@ export const getReservees = (req, res) => {
         res.json(trip);
     });
 }
+export const ReservedseatInfo = (req, res) => {
+    const psr = req.body.PSR;
+    // console.log(psr)
+    Reserve.find({ PSR: psr, seatStatus: "Reserved" }).exec()
+    .then(trip => res.json(trip));
+}
 export const seatInfo = (req, res) => {
     const per = req.body.per;
     const departingDate = req.body.Date;
     const plate = req.body.plateNumber;
     const status = req.body.status;
     const tripName = req.body.tripName;
+    // console.log(tripName)
     if (per === "Bus")
     {    
     Reserve.find({ Date: departingDate, plateNumber: plate, seatStatus: status }).exec().then(trip => res.json(trip));
@@ -79,9 +86,10 @@ export const cancelReserveInfo = (req, res) => {
 }
 export const getReserveInfo = (req, res) => {
     const departingDate = req.body.Date
-    // req.body.Date;
-    // console.log(departingDate)
-    Reserve.find({ Date: departingDate, seatStatus: "Available" }).exec().then(trip => res.json(trip));
+    const source = req.body.source;
+    const dest = req.body.dest;
+    const TripName = source +' to '+ dest;
+    Reserve.find({ TripName: TripName, Date: departingDate, seatStatus: "Available" }).exec().then(trip => res.json(trip));
 }
 export const getReserve = (req, res, next) => {
 
@@ -114,7 +122,7 @@ export const createReserve = (req, res) => {
                 gender: gender,
                 email: email,
                 phoneNumber: phoneNumber,
-                TripName: req.body.TripName,
+                TripName: req.body.DepartingCity + ' to ' + req.body.DestinationCity,
                 plateNumber: req.body.plateNumber,
                 DepartingCity: req.body.DepartingCity,
                 Date: req.body.Date,
@@ -211,42 +219,12 @@ export const cancelReserve = (req, res, next) => {
                 }
                 else {
                     counter++;
-                    // Reserve.findByIdAndUpdate({ _id: tripToCancel },
-                    //     {
-                    //         firstName: "",
-                    //         middleName: "",
-                    //         lastName: "",
-                    //         age: "",
-                    //         gender: "",
-                    //         email: "",
-                    //         phoneNumber: "",
-                    //         PSR: "",
-                    //         seatStatus: "Available"
-                    //     })
-                    //     .then(cancelTrip => res.json(cancelTrip))
-                    //     .catch(err => next(err))
                 }
             }
             else {
                 counter++;
-                // Reserve.findByIdAndUpdate({ _id: tripToCancel },
-                //     {
-                //         firstName: "",
-                //         middleName: "",
-                //         lastName: "",
-                //         age: "",
-                //         gender: "",
-                //         email: "",
-                //         phoneNumber: "",
-                //         PSR: "",
-                //         seatStatus: "Available"
-                //     })
-                //     .then(cancelTrip => res.json(" Successfully Canceled"))
-                //     .catch(err => next(err))
             }
-
-        })
-        if (counter >=1 )
+            if (counter >=1 )
         {
             Reserve.findByIdAndUpdate({ _id: tripToCancel },
                     {
@@ -263,4 +241,7 @@ export const cancelReserve = (req, res, next) => {
                     .then(cancelTrip => res.send(" Successfully Canceled"))
                     .catch(err => next(err))
         }
+
+        })
+        
 }

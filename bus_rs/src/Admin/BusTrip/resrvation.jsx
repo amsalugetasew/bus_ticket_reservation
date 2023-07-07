@@ -1,27 +1,16 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react';
-import {useNavigate, useParams } from 'react-router-dom';
-import axios from "axios";
-function Signup() {
+import React, { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+const Resrvation = () => {
 	const [data, setData] = useState({
 		firstName: "",
 		lastName: "",
 		role: "",
 		email: "",
 		password: "",
-		cpassword: ""
+		Cpassword: ""
 	});
 	const { email } = useParams()
-	// const [Cpasswords, setCpassword] = useState({ Cpassword: "" });
-	const [error, setError] = useState("");
-	const [formError, setFormError] = useState("");
-	const navigate = useNavigate();
-	const handleChange = ({ currentTarget: input }) => {
-		setData({ ...data, [input.name]: input.value });
-		setError("");
-		setFormError("");
-		// setCpassword({ ...Cpasswords, [input.name]: input.value })
-	};
 	async function getUserData() {
 		const formval = { email };
 		const requestOptions = {
@@ -43,20 +32,26 @@ function Signup() {
 
 
 
-	
+	const [Cpasswords, setCpassword] = useState({ Cpassword: "" });
+	const [error, setError] = useState("");
+	const [formError, setFormError] = useState("");
+	const navigate = useNavigate();
+	const handleChange = ({ currentTarget: input }) => {
+		setData({ ...data, [input.name]: input.value });
+		setCpassword({ ...Cpasswords, [input.name]: input.value })
+	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		window.alert(data.email)
 		data.role = 'Admin';
 		const newPerson = { ...data };
 		if (!isNaN(data.firstName)) {
 			setFormError("First Name couldn't be number")
 		}
-		else if (data.password !== data.cpassword) {
+		else if (data.password !== Cpasswords.Cpassword) {
 			setFormError("Password not matched")
 		}
 		else {
-			axios.post('http://localhost:8000/users/Add', newPerson)
+			axios.post('http://localhost:8000/users/add', newPerson)
 				.then(function (res) {
 					window.alert(res.data)
 					if (res.data === "Email Alread exist") {
@@ -176,4 +171,4 @@ function Signup() {
 		</div>
 	)
 }
-export default Signup
+export default Resrvation

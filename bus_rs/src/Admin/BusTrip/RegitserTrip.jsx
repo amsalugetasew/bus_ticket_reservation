@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import View from '../../pages/Image/view.jfif'
+import Register from '../../pages/Image/register.jfif'
 const City = [
   {
     label: "City",
@@ -62,6 +64,8 @@ const RegitserTrip = () => {
   const updateForm = ({ currentTarget: input }) => {
 
     setForm({ ...form, [input.name]: input.value });
+    setFormError("");
+    setSuccess("");
   };
   const handleSubmit = async () => {
     const newBus = { ...form };
@@ -98,7 +102,7 @@ const RegitserTrip = () => {
           }
           else {
             window.alert("Trip Reserved Successfully with Trip Name " + form.DepartingCity + ' to ' + form.DestinationCity)
-            setSuccess(form.DepartingCity  + ' to ' + form.DestinationCity)
+            setSuccess(form.DepartingCity + ' to ' + form.DestinationCity)
             axios.post('http://localhost:8000/reserve/add', newBus)
               .then(res => res.data);
             // navigate("/Admin/trip_list");
@@ -193,80 +197,157 @@ const RegitserTrip = () => {
     getRecords();
   })
   return (
-    <div className='Acount'>
-      <div className='container'>
-        <div className="row">
-          <div className="col-md-3">
-          </div>
-          <div className="col-md-6 main">
-            <Link to="/Admin/trip_list" style={{ marginLeft: "35em", marginBottom: "-25em" }} className='btn btn-edit'>List of Trip</Link>
-            <form onSubmit={onSubmit}>
-              <h1> Trip {id ? "Modification" : "Registration"} Page </h1>
-              {/* <input className="box"
-                type="text" name="TripName" id="TripName"
-                placeholder="Trip Name " required
-                value={form.TripName}
-                onChange={updateForm}
-              /> */}
-              <select name='plateNumber' id='plateNumber'
-                value={form.plateNumber}
-                onChange={updateForm}
-                onMouseLeave={getSingleRecords}
-              >
-                <option value="Plate Number">Plate Number</option>
-                {Data.map((item, i) => (
-                  <option value={item.plateNumber}>{item.plateNumber}</option>
-                ))}
-              </select>
-              <select name='seatNumber' id='seatNumber'
-              // style={{display: "none"}}
-                value={form.seatNumber}
-                onMouseMove={updateForm}
-                // className='display'
-                
-              >
-                {singleTrip.map((item, i) => (
-                  <option value={item.seatNumber}>{item.seatNumber}</option>
-                ))}
-              </select>
-              <select name='DepartingCity' id='DepartingCity' value={form.DepartingCity} onChange={updateForm}>
-                {City.map((option) => (
-                  <option value={option.value}>Departing {option.label}</option>))}
-              </select>
-              <select name='DestinationCity' id='DestinationCity' value={form.DestinationCity} onChange={updateForm}>{City.map((option) => (
-                <option value={option.value}>Destination {option.label}</option>))}
-              </select>
-              <input className="box" type="date" name="Date"
-                id="Date" placeholder="Date "
-                required
-                value={form.Date}
-                onChange={updateForm}
-              />
-              <input className="box" type="Time" name="Time"
-                id="Time" placeholder="Time "
-                required
-                value={form.Time}
-                onChange={updateForm}
-              />
-              <input className="box" type="Time" name="Arriv_Time"
-                id="Arriv_Time" placeholder="Arrival Time "
-                required
-                value={form.Arriv_Time}
-                onChange={updateForm}
-              />
-              {formError && <div className="error_msg" id='error_msg'>{formError}</div>}
-              {success && <div className="success_msg" id='success_msg'>Trip Reserved Successfully with <b><i>Trip Name:</i></b> <b><u>{success}</u></b></div>}
-              <input type="submit" id="submitDetails"
-                name="submitDetails"
-                value={id ? "Edit Trip" : "Add Trip"}
-              />
-            </form>
-          </div>
+    <div className="main" >
+      <main className="app" id='background-Img-contactss' style={{ height: '500px' }}>
+        <div className="screen-wrap">
+          <section className="screen-home">
+            <div className="screen-home__form-wrap">
+              <div className="screen-home__form">
+                <form>
+                  <div id="formdetail">
+                    <div className="screen-home__location">
+                      <div className="lable">
+                        <figure className="icon"><img style={{ width: '60px', height: '60px' }} src={Register} alt='ic' /></figure>
+                        <span className="text">Trip {id ? "Modification" : "Registration"} Page Details</span>
+                        <Link to="/Admin/trip_list" >
+                          <figure className="icon"><img style={{ width: '60px', height: '60px', marginLeft:'3em'}}
+                            src={View} alt='ic' /></figure>
+                        </Link>
+                      </div>
+                      <div className="input-wrap" >
+                        <div className="inside-wrap" id='flex'>
+                          <div className="from" style={{ marginTop: '-0.5em' }}>
+                            <span className="inside-lable">Plate Number</span>
+                            <select name='plateNumber' id='plateNumber'
+                              value={form.plateNumber}
+                              onChange={updateForm}
+                              onMouseLeave={getSingleRecords}
+                              className='input'
+                            >
+                              <option value="Plate Number">Plate Number</option>
+                              {Data.map((item, i) => (
+                                <option value={item.plateNumber}>{item.plateNumber}</option>
+                              ))}
+                            </select>
+                          </div>
+                          <div className="To" style={{ width: '25em' }}>
+                            <span className="inside-lable">Number of Seat</span>
+                            <select name='seatNumber' id='seatNumber'
+                              className='input'
+                              value={form.seatNumber}
+                              onMouseMove={updateForm}
+                            >
+                              {singleTrip.map((item, i) => (
+                                <option value={item.seatNumber}>{item.seatNumber}</option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="input-wrap" >
+                        <div className="inside-wrap" id='flex'>
+                          <div className="rotate-btn" >
+                            <figure style={{ marginLeft: '-21em'}}>
+                              <img src="https://i.ibb.co/HPBrQkn/rotate-btn.png" alt='rt' />
+                            </figure>
+                          </div>
+                          <div className="from" style={{ marginTop: '-0.5em' }}>
+                            <span className="inside-lable">From</span>
+                            <select name='DepartingCity' id='DepartingCity'
+                              className='input'
+                              value={form.DepartingCity}
+                              onChange={updateForm}
+                            >
+                              Trip Title
+                              {City.map((option) => (
+                                <option className='inputs' value={option.value}>{option.label}</option>))}
+                            </select>
+                          </div>
+                          <div className="To" style={{ marginLeft:'2em'}}>
+                            <span className="inside-lable">To</span>
+                            <select name='DestinationCity' id='DestinationCity'
+                              className='input'
+                              value={form.DestinationCity}
+                              onChange={updateForm}
+                            >
+                              Trip Title
+                              {City.map((option) => (
+                                <option className='inputs' value={option.value}>{option.label}</option>))}
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="screen-home__date">
+                        <div className="lable">
+                          <figure className="icon"><img src="https://i.ibb.co/7N5zdnc/calendar.png" alt='dt' /></figure>
+                          <span className="text">Date Details</span>
+                        </div>
+                        <div className="input-wrap">
+                          <div className="inside-wrap">
+
+                              <input type="date" name="Date"
+                                id="Date" placeholder="Date " required
+                                value={form.Date}
+                                onChange={updateForm}
+                                className='input'
+                              />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="input-wrap" >
+                        <div className="inside-wrap" id='flex'>
+                          <div className="rotate-btn" >
+                            <figure style={{ marginLeft: '-21em'}}>
+                              <img src="https://i.ibb.co/HPBrQkn/rotate-btn.png" alt='rt' />
+                            </figure>
+                          </div>
+                          <div className="from" style={{ marginTop: '-2em' }}>
+                            <span className="inside-lable">From</span>
+                            <input name='Time' id='Time'
+                              className='input'
+                              type='Time'
+                              value={form.Time}
+                              onChange={updateForm}
+                            />
+                          </div>
+                          <div className="To" style={{ marginTop: '-1.5em', marginLeft:'2em'}}>
+                            <span className="inside-lable">To</span>
+                            <input name='Arriv_Time' id='Arriv_Time'
+                              type='Time'
+                              className='input'
+                              value={form.Arriv_Time}
+                              onChange={updateForm}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="screen-home__submit-wrap">
+                    <span className="line"></span>
+                    <div className="screen-home__bus-page" id="buspage">
+                      <figure className="screen-home__bus-arrow-wrap">
+                        <img
+                          onClick={onSubmit}
+                          src="https://i.ibb.co/nQ4khG8/arrow.png" alt='btn' />
+                      </figure>
+                    </div>
+                  </div>
+                  <div className="screen-home__recent-search">
+                    <div className="lable" style={{ marginTop: '-5em', marginLeft: '6em' }}>
+                      {formError && <div className="error_msg" id='error_msg'>{formError}</div>}
+                      {success && <div style={{ marginLeft: '-3em', backgroundColor: 'white', marginTop: '-0.6em' }} className="success_msg" id='success_msg'>Trip Reserved Successfully with <b><i>Trip Name:</i></b> <b><u>{success}</u></b></div>}
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+
+            </div>
+          </section>
         </div>
-      </div>
-    </div >
+      </main>
+    </div>
   )
 }
-
-
 export default RegitserTrip

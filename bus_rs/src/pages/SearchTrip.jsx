@@ -1,58 +1,72 @@
 import React, { useState } from 'react'
-// import './res.scss'
+import './res.scss'
 import { Link } from 'react-router-dom';
-import {Stack, Autocomplete, TextField} from '@mui/material'
+import Trips from './Image/trips.png'
+import { Stack, Autocomplete, TextField } from '@mui/material'
 const City = [
-  {
-    label: "City From - To",
-  },
-  {
-    label: "Addis Ababa to Gondar",
-    value: "Addis Ababa  to Gondar",
-  },
-  {
-    label: "Gondar to Addis Ababa",
-    value: "Gondar to Addis Ababa",
-  },
-  {
-    label: "Bahir Dar to Addis Ababa",
-    value: "Bahir Dar to Addis Ababa",
-  },
-  {
-    label: "Hawassa to Addis Ababa",
-    value: "Hawassa to Addis Ababa",
-  },
-  {
-    label: "Dessie to Addis Ababa",
-    value: "Dessie to Addis Ababa",
-  },
-  {
-    label: "Jima to Addis Ababa",
-    value: "Jima to Addis Ababa",
-  },
-  {
-    label: "Gambela to Addis Ababa",
-    value: "Gambela to Addis Ababa",
-  },
-  {
-    label: "JigJiga to Addis Ababa",
-    value: "JigJiga to Addis Ababa",
-  },
-  {
-    label: "Assosa to Addis Ababa",
-    value: "Assosa to Addis Ababa",
-  },
+	{
+		label: "City",
+		value: "City",
+	},
+	{
+		label: "Addis Ababa",
+		value: "Addis Ababa",
+	},
+	{
+		label: "Gondar",
+		value: "Gondar",
+	},
+	{
+		label: "Bahir Dar",
+		value: "Bahir Dar",
+	},
+	{
+		label: "Hawassa",
+		value: "Hawassa",
+	},
+	{
+		label: "Dessie",
+		value: "Dessie",
+	},
+	{
+		label: "Jima",
+		value: "Jima",
+	},
+	{
+		label: "Gambela",
+		value: "Gambela",
+	},
+	{
+		label: "JigJiga",
+		value: "JigJiga",
+	},
+	{
+		label: "Assosa",
+		value: "Assosa",
+	},
 ];
+// const gt = ['gt', 'ad', 'bd']
 const SearchTrip = () => {
-	const [val, setVal] = useState(null)
-	console.log({val})
-  const [Data, setData] = useState([]);
+	// const [val, setVal] = useState(null)
+	// console.log({val})
+
+	const [selected, setSelected] = useState({ label: "" });
+	const handleChange = (e, v) => setSelected(v);
+	const [selected_Dest, setSelected_Dest] = useState({ label: "" });
+	const handleChanges = (e, v) => setSelected_Dest(v);
+	// console.log(selected.value);
+
+
+	const [Data, setData] = useState([]);
 	const [dates, setDates] = useState("")
 	const [form, setForm] = useState({
 		Date: "",
 		source: "",
 		dest: ""
 	})
+	form.source = selected.value
+	form.dest = selected_Dest.value
+	// console.log(form.source, form.dest);
 	const updateForm = ({ currentTarget: input }) => {
 		setForm({ ...form, [input.name]: input.value });
 	};
@@ -60,8 +74,9 @@ const SearchTrip = () => {
 	const getRecords = async (e) => {
 		e.preventDefault();
 		setDates(form.Date)
-		window.alert(dates)
+		// window.alert(form.new)
 		const formval = { ...form };
+		// console.log(formval)
 		const requestOptions = {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
@@ -73,6 +88,7 @@ const SearchTrip = () => {
 			.catch((error) => {
 				window.alert(error);
 			})
+
 	}
 	return (
 		<div className="main">
@@ -85,70 +101,61 @@ const SearchTrip = () => {
 									<div id="formdetail">
 										<div className="screen-home__location">
 											<div className="lable">
-												<figure className="icon"><img src="https://i.ibb.co/KwnYdXN/location.png" alt='ic' /></figure>
-												<span className="text">Location Details</span>
+												<figure className="icon"><img style={{ width: '30px', height: '30px' }}
+													src={Trips} alt='ic' /></figure>
+												<span className="text">Trip Details</span>
 											</div>
 											<div className="input-wrap">
 												<div className="inside-wrap">
-													<div className="rotate-btn">
+													<div className="rotate-btn" style={{ marginTop: '0.5em' }}>
 														<figure>
 															<img src="https://i.ibb.co/HPBrQkn/rotate-btn.png" alt='rt' />
 														</figure>
 													</div>
 													<div className="from">
-														<Stack spacing={2} width='250px'>
+														{/* <span className="inside-lable">From</span> */}
+														<Stack spacing={2} width='250px' backgraoundColor='white'>
 															<Autocomplete
-															options = {City}
-															renderInput = {(params)=>
-																<TextField {...params}
-																label='City'/>}
-															value ={val}
-															onChange = {(event) =>setVal(newVal)}
+																disablePortal
+																id="combo-box-demo"
+																options={City}
+																sx={{ width: 700, marginLeft: '-1em', marginBottom: '2.5em' }}
+																value={selected}
+																onChange={handleChange}
+																renderInput={(params) => <TextField {...params} label="Source City" className='input' />}
 															/>
 														</Stack>
-														<span className="inside-lable">From</span>
-														<select name='source' id='source'
-															className='input'
-															value={form.source}
-															onChange={updateForm}
-														>
-															Trip Title
-															{City.map((option) => (
-																<option className='inputs' value={option.value}>{option.label}</option>))}
-														</select>
 													</div>
 													<div className="To">
-														<span className="inside-lable">To</span>
-														<select name='dest' id='dest'
-															className='input'
-															value={form.dest}
-															onChange={updateForm}
-														>
-															Trip Title
-															{City.map((option) => (
-																<option className='inputs' value={option.value}>{option.label}</option>))}
-														</select>
+														<Stack spacing={2} width='250px' backgraoundColor='white'>
+															<Autocomplete
+																disablePortal
+																id="combo-box-demo"
+																options={City}
+																sx={{ width: 700 }}
+																value={selected_Dest}
+																onChange={handleChanges}
+																renderInput={(params) => <TextField {...params}
+																	className='input'
+																	label="Destination City" />}
+															/>
+														</Stack>
 													</div>
+													
 												</div>
-											</div>
-										</div>
-										<div className="screen-home__date">
-											<div className="lable">
-												<figure className="icon"><img src="https://i.ibb.co/7N5zdnc/calendar.png" alt='dt' /></figure>
-												<span className="text">Date Details</span>
-											</div>
-											<div className="input-wrap">
-												<div className="inside-wrap">
-													<div className="onward">
-
+												<div className="To">
+														<div className="lable">
+															<figure className="icon"><img src="https://i.ibb.co/7N5zdnc/calendar.png" alt='dt' /></figure>
+															<span className="text">Date Details</span>
+														</div>
 														<input type="date" name="Date"
 															id="Date" placeholder="Date " required
 															value={form.Date}
 															onChange={updateForm}
 															className='input'
+															style={{ width: '700px', border: '1px solid' }}
 														/>
 													</div>
-												</div>
 											</div>
 										</div>
 									</div>
@@ -164,7 +171,8 @@ const SearchTrip = () => {
 							</div>
 							<div className="screen-home__recent-search">
 								<div className="lable">
-									<figure className="icon"><img src="https://i.ibb.co/dM8cwj6/recent-search.png" alt='btn' /></figure>
+									<figure className="icon"><img style={{ width: '30px', height: '30px' }}
+										src={Trips} alt='btn' /></figure>
 									<span className="text">Recent search</span>
 								</div>
 								{Data[0] ?
@@ -188,18 +196,18 @@ const SearchTrip = () => {
 													<div className="screen-homers-from-to">
 														<span>{item.seatNumber}</span>
 													</div>
-													<div className="screen-home__rs-date" style={{marginTop:'1em'}}>{item.Date}</div>
+													<div className="screen-home__rs-date" style={{ marginTop: '1em' }}>{item.Date}</div>
 													<div className="screen-homers-from-to">
 														<Link to={`/Reserve_seat/${item._id}`}>
-														
-														<div className="screen-home__submit-wrap">
-															<span className="line"></span>
-															<div className="screen-home__bus-page" id="buspage">
-																<figure className="screen-home__bus-arrow-wrap">
-																	<img  src="https://i.ibb.co/nQ4khG8/arrow.png" alt='btn' />
-																</figure>
+
+															<div className="screen-home__submit-wrap">
+																<span className="line"></span>
+																<div className="screen-home__bus-page" id="buspage">
+																	<figure className="screen-home__bus-arrow-wrap">
+																		<img src="https://i.ibb.co/nQ4khG8/arrow.png" alt='btn' />
+																	</figure>
+																</div>
 															</div>
-														</div>
 														</Link>
 													</div>
 												</li>

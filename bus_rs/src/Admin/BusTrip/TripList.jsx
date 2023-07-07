@@ -1,95 +1,127 @@
 import React, { useEffect, useState } from 'react'
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import "./table.scss";
 import axios from 'axios';
-// import {toast} from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-
-// toast.configure()
+import Close from '../../pages/Image/closes.png';
+// import View from '../../pages/Image/view.jfif'
+import Edit from '../../pages/Image/edit.png'
 function TripList() {
     const [Data, setData] = useState([]);
-    const [formError, setFormError] = useState("");
-    async function getRecords() {
-        const response = await fetch(`http://localhost:8000/trip/fetch/`);
-        if (!response.ok) {
-            const message = `An error occurred: ${response.statusText}`;
-            window.alert(message);
-            return;
-        }
-        const records = await response.json();
-        setData(records);
-    }
-    useEffect(() => {
-        getRecords();
-    })
+	const [formError, setFormError] = useState("");
+	async function getRecords() {
+		const response = await fetch(`http://localhost:8000/trip/fetch/`);
+		if (!response.ok) {
+			const message = `An error occurred: ${response.statusText}`;
+			window.alert(message);
+			return;
+		}
+		const records = await response.json();
+		setData(records);
+	}
+	useEffect(() => {
+		getRecords();
+	})
 
-    const onDeleteTrip = async (id) => {
-        if (window.confirm("Are you sure you want remove trip")) {
-            const response = await axios.delete(`http://localhost:8000/trip/delete/${id}`);
-            if (response.status === 200) {
-                // console.log(response.data);
-                setFormError(response.data)
-                // toast.success(response.data);
-                getRecords();
-            }
-            else{
-                console.log(window.alert("DB not connected"))
-            }
-        }
-    }
+	const onDeleteTrip = async (id) => {
+		if (window.confirm("Are you sure you want remove trip")) {
+			const response = await axios.delete(`http://localhost:8000/trip/delete/${id}`);
+			if (response.status === 200) {
+				// console.log(response.data);
+				setFormError(response.data)
+				// toast.success(response.data);
+				getRecords();
+			}
+			else {
+				console.log(window.alert("DB not connected"))
+			}
+		}
+	}
 
-    return (
-        <div>
-            <div className='row'>
-                <div className="mt-5 mb-4">
-                    <Link to='/Admin/Trip_reg' style={{ marginLeft: "35em" }} className='btn btn-edit'>Add New Trip</Link>
-                </div>
-            </div>
-            <div className="row">
-                <div className="table-responsive" style={{ marginTop: "10px", marginLeft: "40px" }}>
-                    <table className="styled-table">
-                        <thead>
-                            <tr>
-                                <th style={{ textAlign: "center", display: "flex" }}>TripTitle</th>
-                                <th style={{ textAlign: "center" }}>Plate Number</th>
-                                <th style={{ textAlign: "center" }}>Departing City</th>
-                                <th style={{ textAlign: "center" }}>Departing Date</th>
-                                <th style={{ textAlign: "center" }}>Departing Time</th>
-                                <th style={{ textAlign: "center" }}>Destination City</th>
-                                <th style={{ textAlign: "center" }}>Arrival Time</th>
-                                <th style={{ textAlign: "center" }}>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {Data.map((item) =>
-                                <>
-                                    <tr key={item._id}>
-                                        <td>{item.TripName}</td>
-                                        <td>{item.plateNumber}</td>
-                                        <td>{item.DepartingCity}</td>
-                                        <td>{item.Date}</td>
-                                        <td>{item.Time}</td>
-                                        <td>{item.DestinationCity}</td>
-                                        <td>{item.Arriv_Time}</td>
-                                        <td className='display-flex'>
-                                            <Link to={`/Admin/Trip_reg/${item._id}`}>
-                                                <button className="btn btn-edit">Edit</button>
-                                            </Link>
-                                            <button className="btn btn-delete" onClick={() => onDeleteTrip(item._id)}>Delete</button>
-                                            <Link to={`/Admin/view/${item._id}`}>
-                                                <button className="btn btn-view">View</button>
-                                            </Link>
-                                        </td>
-                                    </tr>
-                                </>
-                            )}
-                        </tbody>
-                    </table>
-                    {formError && <div className="error_msg" id='error_msg'>{formError}</div>}
-                </div>
-            </div>
-        </div>
-    )
+	return (
+		<div className="main">
+			<main className="app">
+				<div className="screen-wrap">
+					<section className="screen-home">
+						<div className="screen-home__form-wrap">
+							<div className="screen-home__form">
+							<div className="screen-home__recent-search">
+								<div className="lable">
+									<figure className="icon"><img src="https://i.ibb.co/dM8cwj6/recent-search.png" alt='btn' /></figure>
+									<span className="text">Recent search</span>
+								</div>
+								<table className="styled-table">
+								<div className="screen-home__rs-wrap">
+												<ul className="screen-home__rs-row">
+									<thead >
+										<tr>
+											<th style={{width:'15em'}} >Trip</th>
+											<th >Plate Number</th>
+											<th >From - To</th>
+											<th > Date</th>
+											<th >Action</th>
+										</tr>
+									</thead>
+													</ul></div>
+									<tbody>
+										{Data[0] ?
+											<div className="screen-home__rs-wrap">
+												<ul className="screen-home__rs-row">
+													{Data.map((item, i) =>
+														<>
+															<tr key={item._id}>
+																<li className="screen-home__rs-col">
+																	<td style={{width:'14em'}}>
+																		<div className="screen-homers-from-to">
+																			<span>{item.DepartingCity}</span>
+																			<span className="screen-home__rs-arrow"></span>
+																			<span>{item.DestinationCity}</span>
+																		</div>
+																	</td>
+																	<td><div className="screen-homers-from-to">
+																		<span>{item.plateNumber}</span>
+																	</div>
+																	</td>
+																	<td>
+																		<div className="screen-homers-from-to" style={{marginLeft:'-2em'}}>
+																			<span>{item.Time}</span>
+																			<span className="screen-home__rs-arrow"></span>
+																			<span>{item.Arriv_Time}</span>
+																		</div>
+																	</td>
+																	<td>
+																		<div className="screen-homers-from-to">
+																			<span>{item.Date}</span>
+																		</div>
+																	</td>
+																	<td className='display-flex'>
+																		<Link to={`/Admin/Trip_reg/${item._id}`}>
+																			<img style={{ width: '30px', height: '30px' }} src={Edit} alt="Cancel" />
+																		</Link>
+																		<img onClick={() => onDeleteTrip(item._id)} style={{ width: '30px', height: '30px', cursor:'pointer' }} src={Close} alt="Cancel" />
+																		{/* <Link to={`/Admin/view/${item._id}`}>
+																			<img style={{ width: '30px', height: '30px' }} src={View} alt="Cancel" />
+																		</Link> */}
+																	</td>
+																</li>
+															</tr>
+														</>
+													)}
+												</ul>
+											</div>
+											: "Loading..."}
+									</tbody>
+								</table>
+								{formError && <div className="error_msg" id='error_msg'>{formError}</div>}
+							</div>
+
+							</div>
+							
+						</div>
+					</section>
+				</div>
+			</main>
+		</div>
+	)
 }
 
 

@@ -1,6 +1,10 @@
 import './App.scss'
 const About = () => {
-    return <h1>About</h1>;
+  return (
+  <div className="background-Img-about">
+  <h1>About Us</h1>
+  </div>
+  )
   };
   
   export default About;

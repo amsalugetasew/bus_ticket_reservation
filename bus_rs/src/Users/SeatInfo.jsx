@@ -1,24 +1,24 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import '../Admin/BusTrip/Bus_style.scss'
 import './User.scss'
 const SeatInfo = () => {
   const [Data, setData] = useState([]);
   const [form, setForm] = useState({
-    Date: ""
+    PSR: ""
   })
   const updateForm = ({ currentTarget: input }) => {
 
     setForm({ ...form, [input.name]: input.value });
   };
-  async function getRecords() {
+  async function getRecords(e) {
+    e.preventDefault();
     const formval = { ...form };
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formval)
     };
-    fetch('http://localhost:8000/seat/info/fetch/', requestOptions)
+    fetch('http://localhost:8000/reserved/seat/info/', requestOptions)
       .then(response => response.json())
       .then(data => { data ? setData(data) : window.alert('There is no trip in this data') })
       .catch((error) => {
@@ -28,65 +28,62 @@ const SeatInfo = () => {
   return (
     <>
       <div className='container'>
-        <input className="box" type="type" name="seatCode" style={{ width: "97%", marginLeft: "0em" }}
-          value={form.seatCode}
+      <form onSubmit={getRecords}>
+        <input className="box" type="type" name="PSR" style={{ width: "20%", marginLeft: "0em" }}
+          value={form.PSR}
           onChange={updateForm}
-          onPointerLeave={getRecords}
-          id="seatCode" placeholder="Seat Code " required
+          // onPointerLeave={getRecords}
+          id="PSR" placeholder="PSR Code" required
         />
-        {/* <button className='btn btn-edit' onClick={getRecords}>Seat Info</button> */}
+        <input type="submit" id="submitDetails"
+          name="submitDetails"
+          value="Search" className='btn' style={{ width: "10%", marginLeft: "1em"}}
+        />
+      </form>
+      
       </div>
+      {Data[0] ?
       <div style={{ marginTop: "40px" }}>
         <div className='card'>
           <div className='card-header'>
-            <p>Seat Detail</p>
+          {Data.map((item, i) => (
+              <>
+                <p> {item.firstName}'s Seat Detail</p>
+              </>
+            ))}
+            
           </div>
           <div className='container'>
-            <strong>Plate Number: </strong>
+            
+            <span >Plate Number: </span>
             {Data.map((item, i) => (
               <>
                 <span>{item.plateNumber}</span>
               </>
             ))}
-            <br />
-            <br />
-            <strong>Bus Title: </strong>
-            {Data.map((item, i) => (
-              <>
-                <span>{item.busTitle}</span>
-              </>
-            ))}
-            <br />
-            <br />
-            <strong>Seat Number/Code: </strong>
+            <span style={{marginLeft:'1.5em'}}>Seat Number/Code: </span>
             {Data.map((item, i) => (
               <>
                 <span>{item.seatNumber}</span>
               </>
             ))}
-            <br />
-            <br />
-            <strong>Seat Facility: </strong>
+            {/* <strong>Seat Facility: </strong>
             {Data.map((item, i) => (
               <>
                 <span>{item.facility}</span>
               </>
-            ))}
-            <br />
-            <br />
-            <strong>Seat Position: </strong>
+            ))} */}
+            <span style={{marginLeft:'1.5em'}}>Passanger Code: </span>
             {Data.map((item, i) => (
               <>
-                <span>{item.seatPosition}</span>
+                <span><b><i>{item.PSR}</i></b></span>
               </>
             ))}
-            <br />
-            <br />
-            <strong>Special Service: </strong>
-            <Link to="/Admin/trip_list" className='btn btn-edit'>Go back</Link>
+            {/* <Link to="/Admin/trip_list" id='btn-edit' className='btn-edit'>Go back</Link> */}
           </div>
         </div>
       </div>
+      : <p style={{textAlign:'center'}}>Please enter Passanger Code and Wait to search...</p>}
     </>
   )
 }

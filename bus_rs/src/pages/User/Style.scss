@@ -1,59 +1,257 @@
-.container {
-    justify-content: center;
-    padding: 3px;
-    font-family: 'Helvetica', serif;
-    align-items: center;
-    // box-shadow: 5px 5px 7px 5px #888888;
+$primary: #11998e;
+$secondary: #38ef7d;
+$white: #fff;
+$gray: #9b9b9b;
 
-    h1 {
-        font-size: 40px;
-        text-align: center;
-        font-family: 'Helvetica', serif;
-        color: sandybrown;
+.form {
+  background-color: rgb(240, 234, 234);
+  width: 45%;
+  margin-left: 20em;
+  margin-top: 0.5em;
+  padding-bottom: 2em;
+  padding-top: 2em;
+  border-radius: 20%;
+  .field{
+    display: flex;
+    margin-left: 2em;
+    .label{
+      margin-top: 1em;
     }
-    input {
-        font-family: 'Helvetica', serif;
-        width: 30%;
-        font-size: 20px;
-        padding: 12px 20px;
-        margin: 5px 0;
-        margin-left: 20em;
-        // border: solid sandybrown;
-        // border-bottom: 2px solid sandybrown;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
+    .p{
+      cursor: pointer;
+      margin-left: 4em;
     }
-    input[type=submit] {
-        text-align: center;
-        font-family: 'Helvetica', serif;
-        width: 10%;
-        background-color: #767474;
-        border: none;
-        color: white;
-        padding: 16px 32px;
-        margin: 4px 2px;
-        border-radius: 10px;
-        margin-left: 28em;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-    }
+  }
+}
+.background-Img-trip {
+  padding-top: 2em;
+  padding-bottom: 4em;
+  background-image: url('../Image/golden_bus.jfif');
+  background-repeat:no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+.background-Img-about {
+  padding-top: 2em;
+  padding-bottom: 4em;
+  background-image: url('../Image/golden_bus.jfif');
+  background-repeat:no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+#background-Img-contact {
+  background-image: url('../Image/images.jfif');
+  background-repeat:no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+.background-Img-home {
+  padding-top: 2em;
+  padding-bottom: 4em;
+  background-image: url('../Image/bus.jfif');
+  background-repeat:no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+.background-Img-seat {
+  padding-top: 2em;
+  padding-bottom: 4em;
+  background-image: url('../Image/seat.jpg');
+  background-repeat:no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+.background-Img {
+  padding-top: 2em;
+  padding-bottom: 4em;
+  background-image: url('../Image/login.jfif');
+  background-repeat:no-repeat;
+  background-size: cover;
+  height: 80vh;
+}
 
-    .item {
-        li {
-            list-style: none;
-            font-family: 'Helvetica', serif;
-            padding: 16px 32px;
-            margin: 4px 2px;
-            text-align: center;
-            cursor: pointer;
-        }
-    }
-    .footer3{
-        background-color: #0d315a;
-        position: relative;
-        margin-top: -30px;
-        text-align: center;
-    }
+.form__group {
+  background-color: #000a;
+  position: relative;
+  padding: 10px 0 0;
+  margin-top: 3em;
+  padding-left: 2em;
+  width: 20%;
+  margin-left: 4em;
+  width: 25em;
+
+  .icons {
+    background-color: rgba(0, 0, 0, 0.849);
+    position: absolute;
+    width: 3em;
+    height: 3em;
+    margin-left: -3em;
+    margin-top: -0.7em;
+    color: white;
+  }
+}
+
+.user {
+  margin-left: 35em;
+  border-radius: 50%;
+  width: 4em;
+  height: 4em;
+  position: absolute;
+  margin-top: -1em;
+  // border: 1px solid #47855;
+  background-color: #000a;
+  color: white;
+}
+
+h1 {
+  margin-left: 6em;
+}
+
+li {
+  list-style: none;
+}
+
+#btn {
+  margin-left: 23em;
+  list-style: none;
+  text-decoration: none;
+  --color: #478559;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid $gray;
+  outline: 0;
+  font-size: 1.3rem;
+  color: white;
+  background-color: #fff;
+  padding: 5px 0;
+  text-align: center;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown~.form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+  }
+}
+
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: $gray;
+}
+
+.form__field:focus {
+  ~.form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $primary;
+    font-weight: 700;
+  }
+
+  //   padding-bottom: 6px;  
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, $primary, $secondary);
+  border-image-slice: 1;
+}
+
+/* reset input */
+.form__field {
+
+  &:required,
+  &:invalid {
+    box-shadow: none;
+  }
+}
+
+.error_msg {
+  position: relative;
+  color: salmon;
+  margin-left: 10em;
+}
+
+
+
+
+button,
+.bt {
+  --border: 5px;
+  /* the border width */
+  --color: #37E8FC;
+  /* the color */
+  --color: #f95d9b;
+  --color: #e1b382;
+  --color: #c89666;
+  --color: #2d545e;
+  --color: #123431;
+  --color: #478559;
+  --color: #161748;
+  --color: #f95d9b;
+  --color: #39a0ca;
+  --color: #393939;
+  // --color: #FF5A09;
+  // --color: #ec7f37;
+
+  font-size: 28px;
+  margin-left: 6em;
+  margin-top: 1em;
+  padding: 0.25em 1.2em;
+  width: auto;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  color: var(--color);
+  box-shadow:
+    0 0 0 20px inset var(--c, #0000),
+    0 0 0 var(--border) inset var(--color);
+  background: linear-gradient(var(--color) 0 0) bottom/100% 0% no-repeat;
+  transition: color var(--t, 0.3s), background-size 0.3s;
+  position: relative;
+}
+
+button:before,
+button:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  filter: brightness(1.1);
+}
+
+button:after {
+  inset: 0 0 0 auto;
+  filter: brightness(0.9);
+}
+
+button:hover,
+button:active {
+  background-size: 100% 100%;
+  color: #fff;
+  --t: 0.2s 0.1s;
+}
+
+button:focus-visible {
+  outline-offset: calc(-1*var(--border));
+  outline: var(--border) solid #000a;
+}
+
+button:active {
+  --c: #0005;
+  transform: translate(4px, 4px);
+  transition: none;
 }

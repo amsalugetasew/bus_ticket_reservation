@@ -29,6 +29,35 @@ export const getUser = (req, res, next) => {
         .then(user => res.json(user))
         .catch(err => next(err));
 }
+
+export const chnangeUserPassword = (req, res, next) =>{
+    let userEmail = req.body.email;
+    let password = req.body.password
+    User.find({ email: userEmail }).exec()
+    .then(function (user) 
+    {
+            let userToEdit = user[0]._id
+                const cryptr = new Cryptr("yoursecretkey");
+                var encpassword = cryptr.encrypt(req.body.password);
+                User.findByIdAndUpdate({ _id: userToEdit },
+                    {
+                        password: encpassword
+                    })
+                    .then(editedUser => res.json(editedUser))
+                    .catch(err => next(err))
+    });
+    
+}
+export const findUser = (req, res) => {
+    let userEmail = req.body.email;
+    
+    User.find({ email: userEmail }).exec()
+        .then(function (user) 
+        {
+                res.send(user)
+        });
+}
+
 export const login = (req, res) => {
     let userEmail = req.body.email;
     let userPassword = req.body.password
@@ -38,10 +67,8 @@ export const login = (req, res) => {
         .then(function (user) {
             if (user.length !== 0) {
                 decPassword = cryptr.decrypt(user[0].password)
-                let userFirstName = user[0].firstName;
-                let userLastName = user[0].lastName;
                 if (decPassword === userPassword) {
-                    res.send(userFirstName + ' ' + userLastName)
+                    res.send(userEmail)
                 }
                 else {
                     res.send("Incorrect Email or Password")
@@ -51,13 +78,13 @@ export const login = (req, res) => {
 }
 export const createUser = (req, res) => {
     let userEmail = req.body.email
+    
     User.find({ email: userEmail }).exec()
         .then(function (user) {
             if (user.length !== 0) {
                 res.send("Email Alread exist")
             }
             else {
-
                 const cryptr = new Cryptr("yoursecretkey");
                 var encpassword = cryptr.encrypt(req.body.password);
                 var user = new User({

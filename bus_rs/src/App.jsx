@@ -10,7 +10,6 @@ import RegisterBus from './Admin/BusTrip/RegisterBus';
 import RegitserTrip from './Admin/BusTrip/RegitserTrip';
 import ReserveSeat from './Users/ReserveSeat';
 import AdminLayout from "./Admin/BusTrip/AdminLayout";
-import SearchTrip from "./Users/SearchTrip";
 import CancelReservation from "./Users/CancelReservation";
 import UserLayout from "./Users/UserLayout";
 import UserList from "./pages/User/UserList";
@@ -21,6 +20,9 @@ import SingleBus from "./Admin/BusTrip/SingleBus";
 import SeatInfo from "./Users/SeatInfo";
 import SingleSeat from "./Admin/BusTrip/SingleSeat";
 import ShowAvSeat from "./Admin/BusTrip/ShowAvSeat";
+import ChangePassword from "./pages/User/ChangePassword";
+import Resrvation from "./Admin/BusTrip/resrvation";
+import SearchTrip from "./pages/SearchTrip";
 function App() {
   return (
     <BrowserRouter>
@@ -33,18 +35,26 @@ function App() {
           <Route path="Signin" element={<Signin />} />
           <Route path="Signup" element={<Signup />} />
           <Route path="UserList" element={<UserList/>}/>
+          <Route path="search" element={<SearchTrip/>}/>
+          <Route path="reserve" element={<Resrvation/>}/>
+          <Route path="Cancel_Trip" element={<CancelReservation />} />
+          <Route path="Reserve_seat/:id" element={<ReserveSeat />} />
+          
         </Route>
 
         {/* //Admin Page Route */}
         <Route path="/Admin" element={<AdminLayout />}>
         <Route path="user/:email" element={<ShowAvSeat />} />
-
-          <Route path="Bus_reg" element={<RegisterBus />} />
-          <Route path="Available/seat" element={<ShowAvSeat />} />
+        <Route path="reserve/:email" element={<Resrvation />} />
+        <Route path="changePassword/:email" element={<ChangePassword />} />
+        <Route path="Signup/:email" element={<Signup />} />
+        <Route path="Signup" element={<Signup />} />
+          <Route path="Bus_reg/:email" element={<RegisterBus />} />
+          <Route path="Available/seat/:email" element={<ShowAvSeat />} />
           <Route path="Bus_reg/:id" element={<RegisterBus />} />
           <Route path ="Bus_list" element={<BusList/>}/>
           <Route path ="Trip_list" element={<TripList/>}/>         
-          <Route path="Trip_reg" element={<RegitserTrip />} />
+          <Route path="Trip_reg/:email" element={<RegitserTrip />} />
           <Route path="Trip_reg/:id" element={<RegitserTrip />} />
           <Route path="view/:id" element={<SingleTrip />} />
           <Route path="bus/view/:id" element={<SingleBus />} />

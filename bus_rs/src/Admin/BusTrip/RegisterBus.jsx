@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import './Bus_style.scss'
 import axios from 'axios';
-// import Select from 'react-select';
+import View from '../../pages/Image/view.jfif'
+import Register from '../../pages/Image/register.jfif'
 
-// const aquaticCreatures = [
-//   { label: 'Shark', value: 'Shark' },
-//   { label: 'Dolphin', value: 'Dolphin' },
-//   { label: 'Whale', value: 'Whale' },
-//   { label: 'Octopus', value: 'Octopus' },
-//   { label: 'Crab', value: 'Crab' },
-//   { label: 'Lobster', value: 'Lobster' },
-// ];
 function RegisterBus() {
-
   const [form, setForm] = useState({
     plateNumber: "",
     busNumber: "",
@@ -22,9 +13,12 @@ function RegisterBus() {
     facility: ""
   })
   const [formError, setFormError] = useState("");
+  const [success, setSuccess] = useState("")
   const navigate = useNavigate();
   const updateForm = ({ currentTarget: input }) => {
     setForm({ ...form, [input.name]: input.value });
+    setSuccess("")
+    setFormError("")
   };
   const handleSubmit = async (e) => {
     const newBus = { ...form };
@@ -33,12 +27,19 @@ function RegisterBus() {
     }
     else {
       axios.post('http://localhost:8000/bus/add', newBus)
-        .then(res => console.log(res.data));
-      navigate("/Admin/bus_list");
+        .then(function (res) {
+          if (res.data === ("Bus with plate number " + form.plateNumber + " already exist")) {
+            setFormError(res.data)
+          }
+          else if (res.data === ("Bus with bus number " + form.busNumber + " already exist")) {
+            setFormError(res.data)
+          }
+          else {
+            navigate("/Admin/bus_list");
+          }
+        })
     }
   }
-
-
   const { id } = useParams();
   useEffect(() => {
     if (id) {
@@ -50,6 +51,7 @@ function RegisterBus() {
     if (response.status === 200) {
       setForm({ ...response.data })
     }
+
   }
   const handleEdit = async (id) => {
     const newBus = { ...form };
@@ -72,57 +74,103 @@ function RegisterBus() {
     }
   }
   return (
-    <div className='Acount'>
-      <div className='container'>
-        <div className="row">
-          <div className="col-md-3">
-          </div>
-          <div className="col-md-6 main">
-            <Link to="/Admin/bus_list" style={{ marginLeft: "35em", marginBottom: "-25em" }} className='btn btn-edit'>List of bus</Link>
-            <form onSubmit={onSubmit}>
-              <h1> Bus {id ? "Modification" : "Registration"} Page </h1>
-              {/* <Select id='sl'
-                options={aquaticCreatures}
-              /> */}
-              <input className="box"
-                type="text" name="plateNumber" id="plateNumber"
-                placeholder="Plate Number " required
-                value={form.plateNumber}
-                onChange={updateForm}
-              />
+    <div className="main" >
+      <main className="app" id='background-Img-contactss' style={{ height: '500px' }}>
+        <div className="screen-wrap">
+          <section className="screen-home">
+            <div className="screen-home__form-wrap">
+              <div className="screen-home__form">
+                <form>
+                  <div id="formdetail">
+                    <div className="screen-home__location">
+                      <div className="lable">
+                        <figure className="icon"><img style={{ width: '60px', height: '60px' }} src={Register} alt='ic' /></figure>
+                        <span className="text">Bus {id ? "Modification" : "Registration"} Page Details</span>
+                        <Link to="/Admin/bus_list" >
+                          <figure className="icon"><img style={{ width: '60px', height: '60px', marginLeft: '3em' }}
+                            src={View} alt='ic' /></figure>
+                        </Link>
+                      </div>
+                      <div className="input-wrap" >
+                        <div className="inside-wrap" id='flex'>
+                          <div className="from" style={{ marginTop: '-0.5em' }}>
+                            <span className="inside-lable">Plate Number</span>
+                            <input name='plateNumber' id='plateNumber'
+                              value={form.plateNumber}
+                              onChange={updateForm}
+                              className='input'
+                            />
+                          </div>
+                          <div className="To" style={{ width: '30em' }}>
+                            <span className="inside-lable">Bus Number</span>
+                            <input name='busNumber' id='busNumber'
+                              className='input'
+                              value={form.busNumber}
+                              onChange={updateForm}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="input-wrap" >
+                        <div className="inside-wrap" id='flex'>
+                          <div className="from" style={{ marginTop: '-0.5em' }}>
+                            <span className="inside-lable">Bus Name</span>
+                            <input name='busTitle' id='busTitle'
+                              className='input'
+                              value={form.busTitle}
+                              onChange={updateForm}
+                            />
+                          </div>
+                          <div className="To">
+                            <span className="inside-lable">Number of Seat</span>
+                            <input name='seatNumber' id='seatNumber'
+                              className='input'
+                              value={form.seatNumber}
+                              onChange={updateForm}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="screen-home__date">
+                        <div className="input-wrap">
+                          <div className="inside-wrap">
 
-              <input className="box" type="text" name="busNumber"
-                id="busNumber" placeholder="Bus Number " required
-                value={form.busNumber}
-                onChange={updateForm}
-              // onChange={(e) => updateForm({ Bus_no: e.target.value })}
-              />
-              <input className="box" type="text" name="busTitle"
-                id="busTitle" placeholder="Bus Title " required
-                value={form.busTitle}
-                onChange={updateForm}
-              />
-              <input className="box" type="text" name="seatNumber"
-                id="seatNumber" placeholder="Number Seat " required
-                value={form.seatNumber}
-                onChange={updateForm}
-              />
-              <input className="box" type="text" name="facility"
-                id="facility" placeholder="Facility " required
-                value={form.facility}
-                onChange={updateForm}
-              />
-              {formError && <div className="error_msg" id='error_msg'>{formError}</div>}
-              <input type="submit" id="submitDetails"
-                name="submitDetails"
-                value={id ? "Edit Bus" : "Add Bus"}
-              />
-            </form>
-          </div>
+                              <input name="facility"
+                                id="facility" placeholder="Facility " required
+                                value={form.facility}
+                                onChange={updateForm}
+                                className='input'
+                              />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="screen-home__submit-wrap">
+                    <span className="line"></span>
+                    <div className="screen-home__bus-page" id="buspage">
+                      <figure className="screen-home__bus-arrow-wrap">
+                        <img
+                          onClick={onSubmit}
+                          src="https://i.ibb.co/nQ4khG8/arrow.png" alt='btn' />
+                      </figure>
+                    </div>
+                  </div>
+                  <div className="screen-home__recent-search">
+                    <div className="lable" style={{ marginTop: '-5em', marginLeft: '6em' }}>
+                      {formError && <div className="error_msg" id='error_msg'>{formError}</div>}
+                      {success && <div style={{ marginLeft: '-3em', backgroundColor: 'white', marginTop: '-0.6em' }} className="success_msg" id='success_msg'>Trip Reserved Successfully with <b><i>Trip Name:</i></b> <b><u>{success}</u></b></div>}
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+
+            </div>
+          </section>
         </div>
-      </div>
+      </main>
     </div>
   )
 }
-
 export default RegisterBus

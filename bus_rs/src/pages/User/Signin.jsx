@@ -1,93 +1,119 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
-import "./Style.scss"
 import axios from 'axios';
+import React, { useState } from 'react'
+import { CiLock } from 'react-icons/ci';
+import { FaRegUser } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import Members from '../Image/members.jfif'
+import Member from '../Image/member.jfif'
 function Signin() {
     const [form, setForm] = useState({
-        email: "",
-        password: "",
-    })
-    const [formError, setFormError] = useState("");
-    const navigate = useNavigate();
+		email: "",
+		password: "",
+	})
+	const [formError, setFormError] = useState("");
+	const navigate = useNavigate();
 
-    // These methods will update the state properties.
-    function updateForm(value) {
-        return setForm((prev) => {
-            return { ...prev, ...value };
-        });
-    }
+	// These methods will update the state properties.
+	function updateForm(value) {
+		return setForm((prev) => {
+			return { ...prev, ...value };
+		});
+	}
 
-    // This function will handle the submission.
-    async function onSubmit(e) {
-        e.preventDefault();
-        const newPerson = { ...form };
-        axios.post('http://localhost:8000/users/login', newPerson)
-            .then(function (res) {
-                window.alert(res.data)
-                if(res.data === "Incorrect Email or Password"){
-                    setFormError(res.data)
-                // navigate("/Admin");
-                // navigate(`/Admin/user/${res.data}`)
-                }
-                else{
-                    
-                    navigate(`/Admin/user/${res.data}`)
-                }
-            })
+	// This function will handle the submission.
+	async function onSubmit(e) {
+		e.preventDefault();
+		const newPerson = { ...form };
+		axios.post('http://localhost:8000/users/login', newPerson)
+			.then(function (res) {
+				// window.alert(res.data)
+				if (res.data === "Incorrect Email or Password") {
+					setFormError(res.data)
+				}
+				else {
 
-        // await fetch("http://localhost:5000/signup/add", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify(newPerson),
-        // })
-        // .catch(error => {
-        //   window.alert(error);
-        //   return;
-        // });
+					navigate(`/Admin/user/${res.data}`)
+				}
+			})
+	}
+	return (
+		<div className="main" >
+			<main className="app" id='background-Img-contacts' style={{height:'500px'}}>
+				<div className="screen-wrap">
+					<section className="screen-home">
+						<div className="screen-home__form-wrap">
+							<div className="screen-home__form">
+								<form>
+									<div id="formdetail">
+										<div className="screen-home__location">
+											<div className="lable">
+												<figure className="icon"><img src={Members} style={{width:'60px', height:'60px'}} alt='ic' /></figure>
+												<span className="text">Login Details</span> 
+                                                <figure className="icon"><img src={Member} style={{width:'80px', height:'80px', marginLeft:'2em'}} alt='ic' /></figure>
+											</div>
+											<div className="screen-home__date">
+												<div className="input-wrap">
+													<div className="inside-wrap">
+														<span className="inside-lable">E-mail</span>
+														<FaRegUser size='3em' style={{color:'white', marginLeft:'-9em'}} className='icons' />
+														<input name='email' id='email'
+															className='input'
+															value={form.email}
+															onChange={(e) => updateForm({ email: e.target.value })}
+                                                            style={{backgroundColor:'white', color:'teal', textAlign:'center'}}
+															required
+														/>
+													</div>
+												</div>
+											</div>
+											<div className="screen-home__date">
+												<div className="input-wrap">
+													<div className="inside-wrap">
+														<span className="inside-lable">Password</span>
+														<CiLock size='3em' style={{color:'white', marginLeft:'-9em'}} className='icons' /> 
+														<input name='password' id='password'
+															className='input'
+															type='password'
+															value={form.password}
+                                                            style={{backgroundColor:'white', color:'teal', textAlign:'center'}}
+															onChange={(e) => updateForm({ password: e.target.value })}
+															required
+														/>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div className="screen-home__submit-wrap">
+										<span className="line"></span>
+										<div className="screen-home__bus-page" id="buspage">
+											<figure className="screen-home__bus-arrow-wrap">
+												<img
+													onClick={onSubmit}
+													src="https://i.ibb.co/nQ4khG8/arrow.png" alt='btn' />
+											</figure>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div className="screen-home__recent-search">
+								<div className="lable">
+									{/* <figure className="icon"><img src="https://i.ibb.co/dM8cwj6/recent-search.png" alt='btn' /></figure> */}
+									{/* <span className="text">Remeber Me</span> */}
+									<input style={{marginLeft:'3em'}} type="checkbox" id="vehicle1" name="vehicle1" value="Bike"/>
+                        <label className='label' for="vehicle1"> Remeber Me</label><br/>
+                            <p style={{marginLeft:'10em', cursor:'pointer'}}>Forget Password</p>
+									{formError && <div className="error_msg" id='error_msg'>{formError}</div>}
 
-        // setForm({ email: "", password: "" });
-        
-    }
+								</div>
 
 
-    return (
-        <div className='Acount'>
-        <div className='container'>
-            <div className="row">
-                <div className="col-md-3">
-                </div>
-                <div className="col-md-6 main">
-                    <form onSubmit={onSubmit}>
-                        <h1> Sign In </h1>
-                        <input className="box"
-                            type="email" name="email" id="email"
-                            placeholder="E-Mail " required
-                            value={form.email}
-                            onChange={(e) => updateForm({ email: e.target.value })}
-                        />
-                        
-                        <input className="box" type="password" name="password"
-                            id="password" placeholder="Password " required
-                            value={form.password}
-                            onChange={(e) => updateForm({ password: e.target.value })}
-                        />
-                        {formError && <div className="error_msg" id='error_msg'>{formError}</div>}
-                        <input type="submit" id="submitDetails"
-                            name="submitDetails" value="Sign In" />
-                    </form>
-                    <div className="item">
-                        <Link to="/Signup" style={{ textDecoration: "none" }}>
-                            <li>Sign Up</li>
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    )
+							</div>
+						</div>
+					</section>
+				</div>
+			</main>
+		</div>
+	)
 }
-
-
 export default Signin
