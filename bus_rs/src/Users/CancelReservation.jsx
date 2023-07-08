@@ -58,47 +58,37 @@ const CancelReservation = () => {
                                                 src={Trips} alt='ic' /></figure>
 												<span className="text">Trip Search Details to Cancel<span style={{marginLeft:'1em', color:'sandybrown'}}>Make Sure remaining Trip Start time greater than 6hrs!</span></span>
 											</div>
-											<div className="input-wrap">
-												<div className="inside-wrap">
-													<div className="from">
-														<span className="inside-lable">Phone Number</span>
-														<input name='phoneNumber' id='phoneNumber'
-															className='input'
+										</div>
+										<div className="To" style={{display:'flex'}}>
+														<span className="text" style={{width:'10em', color:'white', backgroundColor:'teal', alignItems: 'center'}}>Phone Number</span>
+														<input  name="phoneNumber"
+															id="phoneNumber" placeholder="phoneNumber " required
 															value={form.phoneNumber}
 															onChange={updateForm}
+															className='input'
+															style={{ width: '700px', opacity:'0.5', color:'black', border: '1px black solid' }}
 														/>
 													</div>
-													<div className="To">
-														<span className="inside-lable">PSR Code</span>
-														<input name='PSR' id='PSR'
-															className='input'
+										<div className="To" style={{marginTop:'2em', display:'flex'}}>
+														<span className="text" style={{width:'10em', color:'white', backgroundColor:'teal', alignItems: 'center'}}>PSR Code</span>
+														<input  name="PSR"
+															id="PSR" placeholder="PSR " required
 															value={form.PSR}
 															onChange={updateForm}
+															className='input'
+															style={{ width: '700px', opacity:'0.5', color:'black', border: '1px black solid' }}
 														/>
 													</div>
-												</div>
-											</div>
-										</div>
-										<div className="screen-home__date">
-											<div className="lable">
-												<figure className="icon"><img src="https://i.ibb.co/7N5zdnc/calendar.png" alt='dt' /></figure>
-												<span className="text">Date Details</span>
-											</div>
-											<div className="input-wrap">
-												<div className="inside-wrap">
-													<div className="onward">
-
+											<div className="To" style={{marginTop:'2em', display:'flex'}}>
+															<span className="text" style={{width:'10em', color:'white', backgroundColor:'teal', alignItems: 'center'}}>Date Details</span>
 														<input type="date" name="Date"
 															id="Date" placeholder="Date " required
 															value={form.Date}
 															onChange={updateForm}
 															className='input'
-															style={{color:'white', width:'20em'}}
+															style={{ width: '700px', opacity:'0.5', color:'black', border: '1px black solid' }}
 														/>
 													</div>
-												</div>
-											</div>
-										</div>
 									</div>
 									<div className="screen-home__submit-wrap">
 										<span className="line"></span>

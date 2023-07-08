@@ -1,170 +1,171 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react'
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import { DataGrid } from '@mui/x-data-grid';
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Close';
+import {
+	GridRowModes,
+	DataGridPro,
+	GridToolbarContainer,
+	GridActionsCellItem,
+	GridRowEditStopReasons,
+  } from '@mui/x-data-grid-pro';
 import axios from 'axios';
+  import {
+	randomCreatedDate,
+	randomTraderName,
+	randomId,
+	randomArrayItem,
+  } from '@mui/x-data-grid-generator';
+  
+const columns = [
+	{
+		field: 'TripName',
+		headerName: 'Trip Name',
+		width: 180,
+		editable: true,
+	},
+	{
+		field: 'DepartingCity',
+		headerName: 'Source City',
+		width: 100,
+		editable: true,
+	},
+	{
+		field: 'DestinationCity',
+		headerName: 'Destination City',
+		width: 100,
+		editable: true,
+	},
+	{
+		field: 'Date',
+		headerName: 'Date',
+		description: 'This column has a value getter and is not sortable.',
+		width: 100,
+	},
+	{
+		field: 'Time',
+		headerName: 'Start Time',
+		width: 90,
+	},
+	{
+		field: 'Arriv_Time',
+		headerName: 'Arrival Time',
+		width: 90,
+	},
+	{
+		field: 'actions',
+		type: 'actions',
+		headerName: 'Actions',
+		width: 100,
+		cellClassName: 'actions',
+		getActions: ({ id }) => {
+		//   const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+  
+		//   if (isInEditMode) {
+			return [
+			  <GridActionsCellItem
+				icon={<SaveIcon />}
+				label="Save"
+				sx={{
+				  color: 'primary.main',
+				}}
+				// onClick={handleSaveClick(id)}
+			  />,
+			//   <GridActionsCellItem
+			// 	icon={<CancelIcon />}
+			// 	label="Cancel"
+			// 	className="textPrimary"
+			// 	// onClick={handleCancelClick(id)}
+			// 	color="inherit"
+			//   />,
+			];
+		//   }
+  
+		  return [
+			<GridActionsCellItem
+			  icon={<EditIcon />}
+			  label="Edit"
+			  className="textPrimary"
+			//   onClick={handleEditClick(id)}
+			  color="inherit"
+			/>,
+			<GridActionsCellItem
+			  icon={<DeleteIcon />}
+			  label="Delete"
+			//   onClick={handleDeleteClick(id)}
+			// onClick={() => onDeleteTrip(item._id)}
+			  color="inherit"
+			/>,
+		  ];
+		},
+	  },
+	];
+
+
 const Resrvation = () => {
-	const [data, setData] = useState({
-		firstName: "",
-		lastName: "",
-		role: "",
-		email: "",
-		password: "",
-		Cpassword: ""
-	});
-	const { email } = useParams()
-	async function getUserData() {
-		const formval = { email };
-		const requestOptions = {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(formval)
-		};
-		fetch('http://localhost:8000/find/User/', requestOptions)
-			.then(response => response.json())
-			.then(data => { data ? setData(data) : window.alert('There is no trip in this data') })
-			.catch((error) => {
-				window.alert(error);
-			})
+	const [Data, setData] = useState([])
+	const [formError, setFormError] = useState("");
+	async function getRecords() {
+		const response = await fetch(`http://localhost:8000/trip/fetch/`);
+		if (!response.ok) {
+			const message = `An error occurred: ${response.statusText}`;
+			window.alert(message);
+			return;
+		}
+		const records = await response.json();
+		setData(records);
 	}
 	useEffect(() => {
-		getUserData()
+		getRecords()
 	})
 
 
 
-
-	const [Cpasswords, setCpassword] = useState({ Cpassword: "" });
-	const [error, setError] = useState("");
-	const [formError, setFormError] = useState("");
-	const navigate = useNavigate();
-	const handleChange = ({ currentTarget: input }) => {
-		setData({ ...data, [input.name]: input.value });
-		setCpassword({ ...Cpasswords, [input.name]: input.value })
-	};
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		data.role = 'Admin';
-		const newPerson = { ...data };
-		if (!isNaN(data.firstName)) {
-			setFormError("First Name couldn't be number")
+	const onDeleteTrip = async (id) => {
+		if (window.confirm("Are you sure you want remove trip")) {
+			const response = await axios.delete(`http://localhost:8000/trip/delete/${id}`);
+			if (response.status === 200) {
+				// console.log(response.data);
+				setFormError(response.data)
+				// toast.success(response.data);
+				getRecords();
+			}
+			else {
+				console.log(window.alert("DB not connected"))
+			}
 		}
-		else if (data.password !== Cpasswords.Cpassword) {
-			setFormError("Password not matched")
-		}
-		else {
-			axios.post('http://localhost:8000/users/add', newPerson)
-				.then(function (res) {
-					window.alert(res.data)
-					if (res.data === "Email Alread exist") {
-						setFormError(res.data)
-					}
-					else {
-						setError(res.data)
-					}
-				})
-			navigate("/Signup");
-		}
-
 	}
-
 	return (
-		<div className="main" id='background-Img-contactt'>
-			<main className="app" id='background-Img-contacts'>
+		<div className="main" >
+			<main className="app">
 				<div className="screen-wrap">
 					<section className="screen-home">
-						<div className="screen-home__form-wrap">
-							<div className="screen-home__form">
-								<form>
-									<div id="formdetail">
-										<div className="screen-home__location">
-											<div className="lable">
-												<span className="text">Sign Up Details</span>
-											</div>
-											<div className="screen-home__date">
-												<div className="input-wrap">
-													<div className="inside-wrap">
-														<span className="inside-lable">First Name</span>
-														<input name='firstName' id='firstName'
-															className='input'
-															value={data.firstName}
-															onChange={handleChange}
-															required
-														/>
-													</div>
-												</div>
-											</div>
-											<div className="screen-home__date">
-												<div className="input-wrap">
-													<div className="inside-wrap">
-														<span className="inside-lable">Last Name</span>
-														<input name='lastName' id='lastName'
-															className='input'
-															value={data.lastName}
-															onChange={handleChange}
-															required
-														/>
-													</div>
-												</div>
-											</div>
-											<div className="screen-home__date">
-												<div className="input-wrap">
-													<div className="inside-wrap">
-														<span className="inside-lable">E-mail</span>
-														<input name='email' id='email'
-															type='email'
-															className='input'
-															value={data.email}
-															onChange={handleChange}
-															required
-														/>
-													</div>
-												</div>
-											</div>
-											<div className="screen-home__date">
-												<div className="input-wrap">
-													<div className="inside-wrap">
-														<span className="inside-lable">New Password</span>
-														<input name='password' id='password'
-															type='password'
-															className='input'
-															value={data.password}
-															onChange={handleChange}
-															required
-														/>
-													</div>
-												</div>
-											</div>
-											<div className="screen-home__date">
-												<div className="input-wrap">
-													<div className="inside-wrap">
-														<span className="inside-lable">Confirmation Password</span>
-														<input name='cpassword' id='cpassword'
-															type='password'
-															className='input'
-															value={data.cpassword}
-															onChange={handleChange}
-															required
-														/>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div className="screen-home__submit-wrap">
-										<span className="line">
-											{formError && <div className="error_msg" id='error_msg'>{formError}</div>}
-											{error && <div className="success_msg" id='success_msg'>{error}</div>}
-										</span>
-										<div className="screen-home__bus-page" id="buspage">
-											<figure className="screen-home__bus-arrow-wrap">
-												<img
-													onClick={handleSubmit}
-													src="https://i.ibb.co/nQ4khG8/arrow.png" alt='btn' />
-											</figure>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
+						
+					<Box sx={{ height: 400, width: '100%' }}>
+							<DataGrid
+								rows={Data}
+								columns={columns}
+								editMode='row'
+								getRowId={(row) => row._id}
+								initialState={{
+									pagination: {
+										paginationModel: {
+											pageSize: 5,
+										},
+									},
+								}}
+								pageSizeOptions={[5]}
+								checkboxSelection
+								disableRowSelectionOnClick
+							/>
+						</Box>
+						{formError && <div className="error_msg" id='error_msg'>{formError}</div>}
 					</section>
 				</div>
 			</main>

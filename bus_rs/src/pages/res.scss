@@ -13,12 +13,6 @@ li {
 figure {
 	margin: 0;
 }
-// body {
-//   height: 100vh;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// }
 .main {
   padding-top: 1em;
 	width: 100%;
@@ -75,14 +69,20 @@ figure {
         .input{
           color: #ffffff;
           width: 60%;
+          
         }
       }
       .inside-lable{
-        width: 20em;
+        width: 15em;
+        // background-color: rgba(63, 60, 60, 0.568);
+        color: white;
       }
       .input{
-        background-color: #66A1F3;
-        color: #ffffff;
+        // background-color: #66A1F3;
+        color: teal;
+        background-color: #fff;
+        border: 1px solid black;
+        opacity: 0.5
       }
     }
   }
@@ -115,6 +115,7 @@ figure {
 }
 .inside-wrap {
 	background-color: #66A1F3;
+  background-color: rgba(2, 80, 80, 0.753);
   /*padding: 10px 0px;*/
   position: relative;
   border-radius: 5px;

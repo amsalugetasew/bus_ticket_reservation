@@ -55,12 +55,12 @@ function Signin() {
 												<div className="input-wrap">
 													<div className="inside-wrap">
 														<span className="inside-lable">E-mail</span>
-														<FaRegUser size='3em' style={{color:'white', marginLeft:'-9em'}} className='icons' />
+														<FaRegUser size='3em' style={{color:'white', marginLeft:'-3em'}} className='icons' />
 														<input name='email' id='email'
 															className='input'
 															value={form.email}
 															onChange={(e) => updateForm({ email: e.target.value })}
-                                                            style={{backgroundColor:'white', color:'teal', textAlign:'center'}}
+                                                            style={{textAlign:'center'}}
 															required
 														/>
 													</div>
@@ -70,12 +70,12 @@ function Signin() {
 												<div className="input-wrap">
 													<div className="inside-wrap">
 														<span className="inside-lable">Password</span>
-														<CiLock size='3em' style={{color:'white', marginLeft:'-9em'}} className='icons' /> 
+														<CiLock size='3em' style={{color:'white', marginLeft:'-3em'}} className='icons' /> 
 														<input name='password' id='password'
 															className='input'
 															type='password'
 															value={form.password}
-                                                            style={{backgroundColor:'white', color:'teal', textAlign:'center'}}
+															style={{textAlign:'center'}}
 															onChange={(e) => updateForm({ password: e.target.value })}
 															required
 														/>

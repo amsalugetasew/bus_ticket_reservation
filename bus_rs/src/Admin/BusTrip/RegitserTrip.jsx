@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import View from '../../pages/Image/view.jfif'
 import Register from '../../pages/Image/register.jfif'
+import { Stack, Autocomplete, TextField } from '@mui/material'
 const City = [
   {
     label: "City",
@@ -58,6 +59,10 @@ const RegitserTrip = () => {
     DestinationCity: "",
     Arriv_Time: ""
   })
+  const [selectedDep, setSelectedDep] = useState({ label: "" });
+  const handleChanges = (e, v) => setSelectedDep(v);
+  const [selectedDes, setSelectedDes] = useState({ label: "" });
+  const handleChangest = (e, v) => setSelectedDes(v);
   const [formError, setFormError] = useState("");
   const [success, setSuccess] = useState("")
   const navigate = useNavigate();
@@ -67,6 +72,8 @@ const RegitserTrip = () => {
     setFormError("");
     setSuccess("");
   };
+  form.DepartingCity = selectedDep.value
+  form.DestinationCity = selectedDes.value
   const handleSubmit = async () => {
     const newBus = { ...form };
     if (form.plateNumber.trim().length === 0) {
@@ -210,7 +217,7 @@ const RegitserTrip = () => {
                         <figure className="icon"><img style={{ width: '60px', height: '60px' }} src={Register} alt='ic' /></figure>
                         <span className="text">Trip {id ? "Modification" : "Registration"} Page Details</span>
                         <Link to="/Admin/trip_list" >
-                          <figure className="icon"><img style={{ width: '60px', height: '60px', marginLeft:'3em'}}
+                          <figure className="icon"><img style={{ width: '60px', height: '60px', marginLeft: '3em' }}
                             src={View} alt='ic' /></figure>
                         </Link>
                       </div>
@@ -244,7 +251,73 @@ const RegitserTrip = () => {
                           </div>
                         </div>
                       </div>
+                      
+                      {/* <div className="input-wrap" >
+                        <div className="inside-wrap" id='flex'>
+                          <div className="from" style={{ marginTop: '-0.5em', marginRight: '1em' }}>
+                            <Stack spacing={1} width='250px'>
+                              
+                              <Autocomplete
+                                disablePortal
+                                id="combo-box-demo"
+                                  options={City}
+                                sx={{ width: 335 }}
+                                value={selectedDep}
+                                onChange={handleChanges}
+                                renderInput={(params) => <TextField {...params} label="Per" className='input' />}
+                              />
+                            </Stack>
+                          </div>
+                          <div className="To" style={{ marginLeft: '4.5em' }}>
+                            <Stack spacing={1} width='250px'>
+                              <Autocomplete
+                                disablePortal
+                                id="combo-box-demo"
+                                options={City}
+                                sx={{ width: 300 }}
+                                value={selectedDes}
+                                onChange={handleChangest}
+                                renderInput={(params) => <TextField {...params} label="Status" className='input' />}
+                              />
+                            </Stack>
+                          </div>
+                        </div>
+                      </div> */}
+
+
+
+
                       <div className="input-wrap" >
+                        <div className="inside-wrap" id='flex'>
+                          <div className="from" style={{ marginTop: '-0.5em', marginRight: '1em' }}>
+                            <Stack spacing={1} width='250px'>
+                              <Autocomplete
+                                disablePortal
+                                id="combo-box-demo"
+                                options={City}
+                                sx={{ width: 335 }}
+                                value={selectedDep}
+                                onChange={handleChanges}
+                                renderInput={(params) => <TextField {...params} label="Per" className='input' />}
+                              />
+                            </Stack>
+                          </div>
+                          <div className="To" style={{ marginLeft: '4.5em' }}>
+                            <Stack spacing={1} width='250px'>
+                              <Autocomplete
+                                disablePortal
+                                id="combo-box-demo"
+                                options={City}
+                                sx={{ width: 300 }}
+                                value={selectedDes}
+                                onChange={handleChangest}
+                                renderInput={(params) => <TextField {...params} label="Status" className='input' />}
+                              />
+                            </Stack>
+                          </div>
+                        </div>
+                      </div>
+                      {/* <div className="input-wrap" >
                         <div className="inside-wrap" id='flex'>
                           <div className="rotate-btn" >
                             <figure style={{ marginLeft: '-21em'}}>
@@ -276,7 +349,7 @@ const RegitserTrip = () => {
                             </select>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                       <div className="screen-home__date">
                         <div className="lable">
                           <figure className="icon"><img src="https://i.ibb.co/7N5zdnc/calendar.png" alt='dt' /></figure>
@@ -285,19 +358,19 @@ const RegitserTrip = () => {
                         <div className="input-wrap">
                           <div className="inside-wrap">
 
-                              <input type="date" name="Date"
-                                id="Date" placeholder="Date " required
-                                value={form.Date}
-                                onChange={updateForm}
-                                className='input'
-                              />
+                            <input type="date" name="Date"
+                              id="Date" placeholder="Date " required
+                              value={form.Date}
+                              onChange={updateForm}
+                              className='input'
+                            />
                           </div>
                         </div>
                       </div>
                       <div className="input-wrap" >
                         <div className="inside-wrap" id='flex'>
                           <div className="rotate-btn" >
-                            <figure style={{ marginLeft: '-21em'}}>
+                            <figure style={{ marginLeft: '-21em' }}>
                               <img src="https://i.ibb.co/HPBrQkn/rotate-btn.png" alt='rt' />
                             </figure>
                           </div>
@@ -310,7 +383,7 @@ const RegitserTrip = () => {
                               onChange={updateForm}
                             />
                           </div>
-                          <div className="To" style={{ marginTop: '-1.5em', marginLeft:'2em'}}>
+                          <div className="To" style={{ marginTop: '-1.5em', marginLeft: '2em' }}>
                             <span className="inside-lable">To</span>
                             <input name='Arriv_Time' id='Arriv_Time'
                               type='Time'

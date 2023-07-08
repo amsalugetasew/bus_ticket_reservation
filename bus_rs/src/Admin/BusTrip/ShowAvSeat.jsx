@@ -121,20 +121,19 @@ const ShowAvSeat = () => {
 								<form>
 									<div id="formdetail">
 										<div className="screen-home__location">
-											<div className="lable">
-												{/* <figure className="icon">
-                          <img style={{ width: '60px', height: '60px' }} src={Register} alt='ic' /></figure> */}
+											<div className="lable" >
 												<span className="text">Available Seat Details</span>
 												
 											</div>
-											<div className="input-wrap" >
+											<div className="input-wrap" style={{paddingTop:'2em'}}>
 												<div className="inside-wrap" id='flex'>
-													<div className="from" style={{ marginTop: '-0.5em' }}>
-														<span className="inside-lable">Plate Number</span>
+													<div className="from" style={{ marginTop: '-2em' }}>
+														<span className="inside-lable" style={{color:'black'}}>Plate Number</span>
 														<input name='plateNumber' id='plateNumber'
 															value={form.plateNumber}
 															onChange={updateForm}
 															className='input'
+															style={{opacity:'0.5',border:'1px solid black', height:'2.5em'}}
 														/>
 													</div>
 													<div className="To" style={{ width: '30em' }}>
@@ -162,13 +161,13 @@ const ShowAvSeat = () => {
 											</div>
 											<div className="input-wrap" >
 												<div className="inside-wrap" id='flex'>
-													<div className="from" style={{ marginTop: '-0.5em', marginRight:'1em' }}>
+													<div className="from" style={{ marginTop: '-0.5em', marginRight:'0em' }}>
 													<Stack spacing={1} width='250px'>
 															<Autocomplete
 																disablePortal
 																id="combo-box-demo"
 																options={Per}
-																sx={{ width: 335 }}
+																sx={{ width: 320 }}
 																value={selectedPer}
 																onChange={handleChanges}
 																renderInput={(params) => <TextField {...params} label="Per" className='input' />}
@@ -190,53 +189,16 @@ const ShowAvSeat = () => {
 													</div>
 												</div>
 											</div>
-											<div className="screen-home__date">
-												<div className="lable">
-													<figure className="icon"><img src="https://i.ibb.co/7N5zdnc/calendar.png" alt='dt' /></figure>
-													<span className="text">Date</span>
-												</div>
-												<div className="input-wrap">
-													<div className="inside-wrap">
-														<div className="onward">
-
-															<input name="Date"
-																type='date'
-																id="Date" placeholder="Date " required
-																value={form.Date}
-																onChange={updateForm}
-																className='input'
-															/>
-														</div>
+											<div className="To" style={{marginTop:'1em', marginLeft:'1.5em'}}>
+															<span className="text" >Date Details</span>
+														<input type="date" name="Date"
+															id="Date" placeholder="Date " required
+															value={form.Date}
+															onChange={updateForm}
+															className='input'
+															style={{ width: '640px', opacity:'0.5', color:'black', border: '1px black solid' }}
+														/>
 													</div>
-												</div>
-											</div>
-											{/* <div className="input-wrap" >
-							<div className="inside-wrap" id='flex'>
-							  <div className="rotate-btn" >
-								<figure style={{ marginLeft: '-22em' }}>
-								  <img src="https://i.ibb.co/HPBrQkn/rotate-btn.png" alt='rt' />
-								</figure>
-							  </div>
-							  <div className="from" style={{ marginTop: '-2em' }}>
-								<span className="inside-lable">From</span>
-								<input name='Time' id='Time'
-								  className='input'
-								  type='Time'
-								  value={form.Time}
-								  onChange={updateForm}
-								/>
-							  </div>
-							  <div className="To" style={{ marginTop: '-1.5em' }}>
-								<span className="inside-lable">To</span>
-								<input name='Arriv_Time' id='Arriv_Time'
-								  type='Time'
-								  className='input'
-								  value={form.Arriv_Time}
-								  onChange={updateForm}
-								/>
-							  </div>
-							</div>
-						  </div> */}
 										</div>
 									</div>
 									<div className="screen-home__submit-wrap">
@@ -257,7 +219,7 @@ const ShowAvSeat = () => {
 								</form>
 
 							</div>
-							<div className="screen-home__recent-search">
+							<div className="screen-home__recent-search" style={{marginTop:'4em'}}>
 								<div className="lable">
 									<figure className="icon"><img src="https://i.ibb.co/dM8cwj6/recent-search.png" alt='btn' /></figure>
 									<span className="text">Recent search</span>

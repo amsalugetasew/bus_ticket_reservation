@@ -105,16 +105,16 @@ const SearchTrip = () => {
 													src={Trips} alt='ic' /></figure>
 												<span className="text">Trip Details</span>
 											</div>
-											<div className="input-wrap">
-												<div className="inside-wrap">
+											<div className="input-wrap" style={{backgroundColor:'white'}}>
+												<div className="inside-wrap" style={{backgroundColor:'white'}}>
 													<div className="rotate-btn" style={{ marginTop: '0.5em' }}>
 														<figure>
 															<img src="https://i.ibb.co/HPBrQkn/rotate-btn.png" alt='rt' />
 														</figure>
 													</div>
-													<div className="from">
+													<div className="from" style={{backgroundColor:'white'}}>
 														{/* <span className="inside-lable">From</span> */}
-														<Stack spacing={2} width='250px' backgraoundColor='white'>
+														<Stack spacing={2} width='250px' backgroundColor='white'>
 															<Autocomplete
 																disablePortal
 																id="combo-box-demo"
@@ -153,7 +153,7 @@ const SearchTrip = () => {
 															value={form.Date}
 															onChange={updateForm}
 															className='input'
-															style={{ width: '700px', border: '1px solid' }}
+															style={{ width: '700px', opacity:'0.5', color:'black', border: '1px black solid' }}
 														/>
 													</div>
 											</div>
