@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Stack, Autocomplete, TextField } from '@mui/material'
+import { DataGrid } from '@mui/x-data-grid';
+import Box from '@mui/material/Box';
 const City = [
   {
     label: "Trip Title",
@@ -110,6 +112,51 @@ const ShowAvSeat = () => {
 		  setFormError(error)
 		})
 	}
+
+
+	const columns = [
+		{
+		  field: 'plateNumber',
+		  headerName: 'Plate Number',
+		  width: 100,
+		  editable: true,
+		},
+		{
+			field: 'DepartingCity',
+			headerName: 'Source City',
+			width: 100,
+			editable: true,
+		  },
+		  {
+			field: 'DestinationCity',
+			headerName: 'Destination City',
+			width: 150,
+			editable: true,
+		  },
+		{
+		  field: 'Time',
+		  headerName: 'Start Time',
+		  width: 100,
+		  editable: true,
+		},
+		{
+		  field: 'Arriv_Time',
+		  headerName: 'Arrival Time',
+		  width: 100,
+		  editable: true,
+		},
+		{
+		  field: 'seatNumber',
+		  headerName: 'Number of Seat',
+		  width: 150,
+		},
+		{
+			field: 'Date',
+			headerName: 'Trip Date',
+			width: 100,
+		  },
+	  
+	  ];
   
 	return (
 		<div className="main" >
@@ -128,11 +175,12 @@ const ShowAvSeat = () => {
 											<div className="input-wrap" style={{paddingTop:'2em'}}>
 												<div className="inside-wrap" id='flex'>
 													<div className="from" style={{ marginTop: '-2em' }}>
-														<span className="inside-lable" style={{color:'black'}}>Plate Number</span>
+														<span className="inside-lable" >Plate Number</span>
 														<input name='plateNumber' id='plateNumber'
 															value={form.plateNumber}
 															onChange={updateForm}
 															className='input'
+															placeholder='Plate Number'
 															style={{opacity:'0.5',border:'1px solid black', height:'2.5em'}}
 														/>
 													</div>
@@ -148,14 +196,6 @@ const ShowAvSeat = () => {
 																renderInput={(params) => <TextField {...params} label="Trip Name" className='input' />}
 															/>
 														</Stack>
-														{/* <span className="inside-lable">Trip Name</span>
-														<select name='tripName' id='tripName' value={form.tripName}
-															className='input'
-															onChange={updateForm}>
-															Trip Title
-															{City.map((option) => (
-																<option value={option.value}>{option.label}</option>))}
-														</select> */}
 													</div>
 												</div>
 											</div>
@@ -190,7 +230,7 @@ const ShowAvSeat = () => {
 												</div>
 											</div>
 											<div className="To" style={{marginTop:'1em', marginLeft:'1.5em'}}>
-															<span className="text" >Date Details</span>
+															<span className="text" style={{color:'teal'}}>Date Details</span>
 														<input type="date" name="Date"
 															id="Date" placeholder="Date " required
 															value={form.Date}
@@ -227,7 +267,31 @@ const ShowAvSeat = () => {
 								{Data[0] ?
 									<div className="screen-home__rs-wrap">
 										<ul className="screen-home__rs-row">
-											{Data.map((item, i) =>
+										<Box sx={{ height: 400, width: '100%',
+          '& .actions': {
+									color: 'text.secondary',
+								},
+								'& .textPrimary': {
+									color: 'text.primary',
+								}, }}>
+							<DataGrid
+								rows={Data}
+								columns={columns}
+								editMode='row'
+								getRowId={(row) => row._id}
+								initialState={{
+									pagination: {
+										paginationModel: {
+											pageSize: 5,
+										},
+									},
+								}}
+								pageSizeOptions={[5]}
+								checkboxSelection
+								disableRowSelectionOnClick
+							/>
+						</Box>
+											{/* {Data.map((item, i) =>
 												<li className="screen-home__rs-col">
 													<div className="screen-homers-from-to">
 														<span>{item.DepartingCity}</span>
@@ -248,7 +312,7 @@ const ShowAvSeat = () => {
 													<div className="screen-home__rs-date" style={{marginTop:'1em'}}>{item.Date}</div>
 													
 												</li>
-											)}
+											)} */}
 										</ul>
 									</div>
 									: <>{dates ? <div className="error_msg" id='error_msg'>No Available Trip</div> : ""} </>}

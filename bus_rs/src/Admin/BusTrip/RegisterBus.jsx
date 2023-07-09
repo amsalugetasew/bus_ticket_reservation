@@ -94,19 +94,21 @@ function RegisterBus() {
                       <div className="input-wrap" >
                         <div className="inside-wrap" id='flex'>
                           <div className="from" style={{ marginTop: '-0.5em' }}>
-                            <span className="inside-lable">Plate Number</span>
+                            <span className="inside-lable" style={{color:'teal'}}>Plate Number</span>
                             <input name='plateNumber' id='plateNumber'
                               value={form.plateNumber}
                               onChange={updateForm}
+                              placeholder="Plate Number"
                               className='input'
                             />
                           </div>
                           <div className="To" style={{ width: '30em' }}>
-                            <span className="inside-lable">Bus Number</span>
+                            <span className="inside-lable" style={{color:'teal'}}>Bus Number</span>
                             <input name='busNumber' id='busNumber'
                               className='input'
                               value={form.busNumber}
                               onChange={updateForm}
+                              placeholder="Bus Number"
                             />
                           </div>
                         </div>
@@ -114,35 +116,34 @@ function RegisterBus() {
                       <div className="input-wrap" >
                         <div className="inside-wrap" id='flex'>
                           <div className="from" style={{ marginTop: '-0.5em' }}>
-                            <span className="inside-lable">Bus Name</span>
+                            <span className="inside-lable" style={{color:'teal'}}>Bus Name</span>
                             <input name='busTitle' id='busTitle'
                               className='input'
+                              placeholder="Bus Name"
                               value={form.busTitle}
                               onChange={updateForm}
                             />
                           </div>
                           <div className="To">
-                            <span className="inside-lable">Number of Seat</span>
+                            <span className="inside-lable" style={{color:'teal'}}>Number of Seat</span>
                             <input name='seatNumber' id='seatNumber'
                               className='input'
+                              placeholder="Number of Seat"
                               value={form.seatNumber}
                               onChange={updateForm}
                             />
                           </div>
                         </div>
                       </div>
-                      <div className="screen-home__date">
-                        <div className="input-wrap">
-                          <div className="inside-wrap">
-
+                      <div className="To" style={{ marginLeft:'1.5em'}}>
+                      <span className="inside-lable" style={{color:'teal'}}>Facility</span>
                               <input name="facility"
                                 id="facility" placeholder="Facility " required
                                 value={form.facility}
                                 onChange={updateForm}
                                 className='input'
+                                style={{ width: '670px', opacity:'0.5', color:'black', border: '1px black solid' }}
                               />
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>

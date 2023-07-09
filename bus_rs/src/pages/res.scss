@@ -21,7 +21,7 @@ figure {
   justify-content: center;
   align-items: center;
   background: #66a1f3;	
-  background-color: lightgray;
+  background-color: rgba(245, 239, 239, 0.719);
   padding-bottom: 1em;
   #background-Img-contacts{
     width: 500px;
@@ -52,7 +52,12 @@ figure {
   padding-top: -10em;
 }
 }
+#background{
 
+.inside-lable{
+  background-color: rgba(63, 60, 60, 0.568);
+}
+}
 /* ========== Home ========== */
 .screen-home__location,
 .screen-home__date {
@@ -114,8 +119,13 @@ figure {
 	font-family: roboto;
 }
 .inside-wrap {
-	background-color: #66A1F3;
-  background-color: rgba(2, 80, 80, 0.753);
+	background-color: transparent;
+  .inside-lable{
+    text-align: center;
+    padding: 1px 0;
+    background-color: transparent;
+  }
+  // background-color: rgba(2, 80, 80, 0.753);
   /*padding: 10px 0px;*/
   position: relative;
   border-radius: 5px;

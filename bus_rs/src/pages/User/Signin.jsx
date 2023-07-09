@@ -5,6 +5,10 @@ import { FaRegUser } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Members from '../Image/members.jfif'
 import Member from '../Image/member.jfif'
+import Alert from '@mui/material/Alert';
+import {InputAdornment, TextField } from '@mui/material'
+import Box from '@mui/material/Box';
+import { AccountCircle } from '@mui/icons-material';
 function Signin() {
     const [form, setForm] = useState({
 		email: "",
@@ -42,9 +46,30 @@ function Signin() {
 				<div className="screen-wrap">
 					<section className="screen-home">
 						<div className="screen-home__form-wrap">
-							<div className="screen-home__form">
+							<div className="screen-home__form" id = 'background'>
 								<form>
-									<div id="formdetail">
+								<Box component = "form"
+									sx={{
+										'& > :not(style)':{m: 1, width: '25ch'},
+									}}
+									>
+										<TextField 
+										id="outlined-basic" 
+										label="Email" 
+										variant="oulined"
+										InputLabelProps={{
+											startAdornment:(
+												<InputAdornment position="start">
+													<AccountCircle/>
+												</InputAdornment>
+												
+											),
+										}}
+										/>
+										<AccountCircle sx={{color:'action.active', mr:1, my:0.5}}/>
+										<TextField id="outlined-basic" label="Email" variant="oulined"/>
+									</Box>
+									{/* <div id="formdetail">
 										<div className="screen-home__location">
 											<div className="lable">
 												<figure className="icon"><img src={Members} style={{width:'60px', height:'60px'}} alt='ic' /></figure>
@@ -83,7 +108,7 @@ function Signin() {
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> */}
 									<div className="screen-home__submit-wrap">
 										<span className="line"></span>
 										<div className="screen-home__bus-page" id="buspage">

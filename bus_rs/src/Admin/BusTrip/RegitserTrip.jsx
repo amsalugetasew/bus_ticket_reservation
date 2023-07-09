@@ -224,21 +224,21 @@ const RegitserTrip = () => {
                       <div className="input-wrap" >
                         <div className="inside-wrap" id='flex'>
                           <div className="from" style={{ marginTop: '-0.5em' }}>
-                            <span className="inside-lable">Plate Number</span>
+                            <span className="inside-lable" style={{color:'teal'}}>Plate Number</span>
                             <select name='plateNumber' id='plateNumber'
                               value={form.plateNumber}
                               onChange={updateForm}
                               onMouseLeave={getSingleRecords}
                               className='input'
                             >
-                              <option value="Plate Number">Plate Number</option>
+                              <option value="Plate Number" style={{color:'teal', backgroundColor:'transparent'}}>Plate Number</option>
                               {Data.map((item, i) => (
                                 <option value={item.plateNumber}>{item.plateNumber}</option>
                               ))}
                             </select>
                           </div>
                           <div className="To" style={{ width: '25em' }}>
-                            <span className="inside-lable">Number of Seat</span>
+                            <span className="inside-lable" style={{color:'teal'}}>Number of Seat</span>
                             <select name='seatNumber' id='seatNumber'
                               className='input'
                               value={form.seatNumber}
@@ -251,67 +251,31 @@ const RegitserTrip = () => {
                           </div>
                         </div>
                       </div>
-                      
-                      {/* <div className="input-wrap" >
-                        <div className="inside-wrap" id='flex'>
-                          <div className="from" style={{ marginTop: '-0.5em', marginRight: '1em' }}>
-                            <Stack spacing={1} width='250px'>
-                              
-                              <Autocomplete
-                                disablePortal
-                                id="combo-box-demo"
-                                  options={City}
-                                sx={{ width: 335 }}
-                                value={selectedDep}
-                                onChange={handleChanges}
-                                renderInput={(params) => <TextField {...params} label="Per" className='input' />}
-                              />
-                            </Stack>
-                          </div>
-                          <div className="To" style={{ marginLeft: '4.5em' }}>
-                            <Stack spacing={1} width='250px'>
-                              <Autocomplete
-                                disablePortal
-                                id="combo-box-demo"
-                                options={City}
-                                sx={{ width: 300 }}
-                                value={selectedDes}
-                                onChange={handleChangest}
-                                renderInput={(params) => <TextField {...params} label="Status" className='input' />}
-                              />
-                            </Stack>
-                          </div>
-                        </div>
-                      </div> */}
-
-
-
-
                       <div className="input-wrap" >
                         <div className="inside-wrap" id='flex'>
                           <div className="from" style={{ marginTop: '-0.5em', marginRight: '1em' }}>
-                            <Stack spacing={1} width='250px'>
+                            <Stack spacing={1} width='250px' height = '10px' >
                               <Autocomplete
                                 disablePortal
                                 id="combo-box-demo"
                                 options={City}
-                                sx={{ width: 335 }}
+                                sx={{ width: 300, height: 10 }}
                                 value={selectedDep}
                                 onChange={handleChanges}
-                                renderInput={(params) => <TextField {...params} label="Per" className='input' />}
+                                renderInput={(params) => <TextField {...params} label="Source City" className='input' />}
                               />
                             </Stack>
                           </div>
-                          <div className="To" style={{ marginLeft: '4.5em' }}>
+                          <div className="To" style={{ marginLeft: '2em' }}>
                             <Stack spacing={1} width='250px'>
                               <Autocomplete
                                 disablePortal
                                 id="combo-box-demo"
                                 options={City}
-                                sx={{ width: 300 }}
+                                sx={{ width: 370 }}
                                 value={selectedDes}
                                 onChange={handleChangest}
-                                renderInput={(params) => <TextField {...params} label="Status" className='input' />}
+                                renderInput={(params) => <TextField {...params} label="Destination City" className='input' />}
                               />
                             </Stack>
                           </div>
@@ -350,22 +314,19 @@ const RegitserTrip = () => {
                           </div>
                         </div>
                       </div> */}
-                      <div className="screen-home__date">
+                      <div className="To" style={{ marginLeft:'1.5em', marginBottom:'1em'}}>
                         <div className="lable">
                           <figure className="icon"><img src="https://i.ibb.co/7N5zdnc/calendar.png" alt='dt' /></figure>
                           <span className="text">Date Details</span>
                         </div>
-                        <div className="input-wrap">
-                          <div className="inside-wrap">
 
                             <input type="date" name="Date"
                               id="Date" placeholder="Date " required
                               value={form.Date}
                               onChange={updateForm}
                               className='input'
+                              style={{ width: '670px', opacity:'0.5', color:'black', border: '1px black solid' }}
                             />
-                          </div>
-                        </div>
                       </div>
                       <div className="input-wrap" >
                         <div className="inside-wrap" id='flex'>

@@ -52,7 +52,7 @@ const ChangePassword = () => {
 				<div className="screen-wrap">
 					<section className="screen-home">
 						<div className="screen-home__form-wrap">
-							<div className="screen-home__form">
+							<div className="screen-home__form" id='background'>
 								<form>
 									<div id="formdetail">
 										<div className="screen-home__location">

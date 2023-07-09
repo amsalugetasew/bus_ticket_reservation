@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import '../pages/res.scss'
 import axios from 'axios';
-import Close from '../pages/Image/closes.png'
 import Trips from '../pages/Image/trips.png'
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import Box from '@mui/material/Box';
+import { DataGrid } from '@mui/x-data-grid';
+import {GridActionsCellItem } from '@mui/x-data-grid-pro';
 const CancelReservation = () => {
   const [dates, setDates] = useState("")
 	const [Data, setData] = useState([]);
@@ -34,22 +37,88 @@ const CancelReservation = () => {
 	
    
   
-	const handleEdit = async (id) => {
+		const handleEdit = (id) => () => {
 	  const newBus = { ...form };
-	  axios.put(`http://localhost:8000/cancel/${id}`, newBus)
+	   axios.put(`http://localhost:8000/cancel/${id}`, newBus)
 		.then(function(res){
 		  window.alert("PSR " +form.PSR + " " + res.data)
 		  setFormError("PSR " +form.PSR + " " + res.data)
+		  setData("")
 		});
-	  // navigate("/User/Search_Trip");
 	}
+
+
+
+	const columns = [
+		{ field: '_id', headerName: 'ID', width: 180, editable: true },
+		{
+			field: 'plateNumber',
+			headerName: 'Plate Number',
+			width: 100,
+			editable: true,
+		  },
+		  {
+			  field: 'DepartingCity',
+			  headerName: 'Source City',
+			  width: 100,
+			  editable: true,
+			},
+			{
+			  field: 'DestinationCity',
+			  headerName: 'Destination City',
+			  width: 150,
+			  editable: true,
+			},
+		  {
+			field: 'Time',
+			headerName: 'Start Time',
+			width: 100,
+			editable: true,
+		  },
+		  {
+			field: 'Arriv_Time',
+			headerName: 'Arrival Time',
+			width: 100,
+			editable: true,
+		  },
+		  {
+			field: 'seatNumber',
+			headerName: 'Number of Seat',
+			width: 150,
+		  },
+		  {
+			  field: 'Date',
+			  headerName: 'Trip Date',
+			  width: 100,
+			},
+	   
+		
+		{
+		  field: 'actions',
+		  type: 'actions',
+		  headerName: 'Actions',
+		  width: 100,
+		  cellClassName: 'actions',
+		  getActions: ({ id }) => {
+			return [
+			  <GridActionsCellItem
+				icon={<DeleteIcon />}
+				label="Edit"
+				className="textPrimary"
+				onClick={handleEdit(id)}
+				color="inherit"
+			  />,
+			];
+		  },
+		},
+	  ];
 	return (
 		<div className="main">
 			<main className="app">
 				<div className="screen-wrap">
 					<section className="screen-home">
 						<div className="screen-home__form-wrap">
-							<div className="screen-home__form">
+							<div className="screen-home__form" id='background'>
 								<form>
 									<div id="formdetail">
 										<div className="screen-home__location">
@@ -109,7 +178,31 @@ const CancelReservation = () => {
 								{Data[0] ?
 									<div className="screen-home__rs-wrap">
 										<ul className="screen-home__rs-row">
-											{Data.map((item, i) =>
+										<Box sx={{ height: 400, width: '100%',
+          '& .actions': {
+									color: 'text.secondary',
+								},
+								'& .textPrimary': {
+									color: 'text.primary',
+								}, }}>
+							<DataGrid
+								rows={Data}
+								columns={columns}
+								editMode='row'
+								getRowId={(row) => row._id}
+								initialState={{
+									pagination: {
+										paginationModel: {
+											pageSize: 5,
+										},
+									},
+								}}
+								pageSizeOptions={[5]}
+								checkboxSelection
+								disableRowSelectionOnClick
+							/>
+						</Box>
+											{/* {Data.map((item, i) =>
 												<li className="screen-home__rs-col">
 													<div className="screen-homers-from-to">
 														<span>{item.DepartingCity}</span>
@@ -140,7 +233,7 @@ const CancelReservation = () => {
 														</div>
 													</div>
 												</li>
-											)}
+											)} */}
 										</ul>
 									</div>
 									: <>{dates ? <div className="error_msg" id='error_msg'>No Available Trip</div> : ""} </>}

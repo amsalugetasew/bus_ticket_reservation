@@ -52,9 +52,11 @@ function App() {
           <Route path="Bus_reg/:email" element={<RegisterBus />} />
           <Route path="Available/seat/:email" element={<ShowAvSeat />} />
           <Route path="Bus_reg/:id" element={<RegisterBus />} />
+          <Route path="Bus_reg" element={<RegisterBus />} />
           <Route path ="Bus_list" element={<BusList/>}/>
           <Route path ="Trip_list" element={<TripList/>}/>         
           <Route path="Trip_reg/:email" element={<RegitserTrip />} />
+          <Route path="Trip_reg" element={<RegitserTrip />} />
           <Route path="Trip_reg/:id" element={<RegitserTrip />} />
           <Route path="view/:id" element={<SingleTrip />} />
           <Route path="bus/view/:id" element={<SingleBus />} />

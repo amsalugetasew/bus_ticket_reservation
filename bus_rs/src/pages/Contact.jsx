@@ -10,6 +10,7 @@ const Contact = () => {
 	const [formError, setFormError] = useState("");
 	const updateForm = ({ currentTarget: input }) => {
 		setForm({ ...form, [input.name]: input.value });
+		setFormError("")
 	};
 	// setFormError('form.fullName')
 
@@ -19,7 +20,7 @@ const Contact = () => {
 				<div className="screen-wrap">
 					<section className="screen-home">
 						<div className="screen-home__form-wrap">
-							<div className="screen-home__form">
+							<div className="screen-home__form" id='background'>
 								<form>
 									<div id="formdetail">
 										<div className="screen-home__location">
@@ -93,6 +94,7 @@ const Contact = () => {
 											</figure>
 										</div>
 									</div>
+									{formError && <div className="error_msg" id='error_msg'>{formError}</div>}
 								</form>
 							</div>
 						</div>
