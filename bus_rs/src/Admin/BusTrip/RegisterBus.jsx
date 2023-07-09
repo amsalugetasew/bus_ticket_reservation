@@ -3,7 +3,10 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import View from '../../pages/Image/view.jfif'
 import Register from '../../pages/Image/register.jfif'
-
+import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import { Stack } from '@mui/material';
 function RegisterBus() {
   const [form, setForm] = useState({
     plateNumber: "",
@@ -83,7 +86,7 @@ function RegisterBus() {
                 <form>
                   <div id="formdetail">
                     <div className="screen-home__location">
-                      <div className="lable">
+                      <div className="lable" style={{marginLeft:'10em'}}>
                         <figure className="icon"><img style={{ width: '60px', height: '60px' }} src={Register} alt='ic' /></figure>
                         <span className="text">Bus {id ? "Modification" : "Registration"} Page Details</span>
                         <Link to="/Admin/bus_list" >
@@ -91,60 +94,54 @@ function RegisterBus() {
                             src={View} alt='ic' /></figure>
                         </Link>
                       </div>
-                      <div className="input-wrap" >
-                        <div className="inside-wrap" id='flex'>
-                          <div className="from" style={{ marginTop: '-0.5em' }}>
-                            <span className="inside-lable" style={{color:'teal'}}>Plate Number</span>
-                            <input name='plateNumber' id='plateNumber'
-                              value={form.plateNumber}
-                              onChange={updateForm}
-                              placeholder="Plate Number"
-                              className='input'
-                            />
-                          </div>
-                          <div className="To" style={{ width: '30em' }}>
-                            <span className="inside-lable" style={{color:'teal'}}>Bus Number</span>
-                            <input name='busNumber' id='busNumber'
-                              className='input'
-                              value={form.busNumber}
-                              onChange={updateForm}
-                              placeholder="Bus Number"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="input-wrap" >
-                        <div className="inside-wrap" id='flex'>
-                          <div className="from" style={{ marginTop: '-0.5em' }}>
-                            <span className="inside-lable" style={{color:'teal'}}>Bus Name</span>
-                            <input name='busTitle' id='busTitle'
-                              className='input'
-                              placeholder="Bus Name"
-                              value={form.busTitle}
-                              onChange={updateForm}
-                            />
-                          </div>
-                          <div className="To">
-                            <span className="inside-lable" style={{color:'teal'}}>Number of Seat</span>
-                            <input name='seatNumber' id='seatNumber'
-                              className='input'
-                              placeholder="Number of Seat"
-                              value={form.seatNumber}
-                              onChange={updateForm}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="To" style={{ marginLeft:'1.5em'}}>
-                      <span className="inside-lable" style={{color:'teal'}}>Facility</span>
-                              <input name="facility"
-                                id="facility" placeholder="Facility " required
-                                value={form.facility}
-                                onChange={updateForm}
-                                className='input'
-                                style={{ width: '670px', opacity:'0.5', color:'black', border: '1px black solid' }}
-                              />
-                      </div>
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', marginLeft: '10em' }}>
+										<TextField
+											sx={{ m: 1, width: '45ch' }}
+											id="outlined-basic"
+											label="Plate Number"
+											variant="outlined"
+											name='plateNumber'
+											value={form.plateNumber}
+											onChange={updateForm}
+										/>
+										<TextField
+											sx={{ m: 1, width: '45ch' }}
+											id="outlined-basic"
+											label="Bus Number"
+											variant="outlined"
+											name='busNumber'
+											value={form.busNumber}
+											onChange={updateForm}
+										/>
+                    <TextField
+											sx={{ m: 1, width: '45ch' }}
+											id="outlined-basic"
+											label="Bus Name"
+											variant="outlined"
+											name='busTitle'
+											value={form.busTitle}
+											onChange={updateForm}
+										/>
+                    <TextField
+											sx={{ m: 1, width: '45ch' }}
+											id="outlined-basic"
+											label="Number of Seat"
+											variant="outlined"
+											name='seatNumber'
+											value={form.seatNumber}
+											onChange={updateForm}
+										/>
+                    <TextField
+											sx={{ m: 1, width: '45ch' }}
+											id="outlined-basic"
+											label="Facility"
+											variant="outlined"
+											name='facility'
+											value={form.facility}
+											onChange={updateForm}
+										/>
+
+									</Box>
                     </div>
                   </div>
                   <div className="screen-home__submit-wrap">
@@ -159,9 +156,17 @@ function RegisterBus() {
                   </div>
                   <div className="screen-home__recent-search">
                     <div className="lable" style={{ marginTop: '-5em', marginLeft: '6em' }}>
-                      {formError && <div className="error_msg" id='error_msg'>{formError}</div>}
-                      {success && <div style={{ marginLeft: '-3em', backgroundColor: 'white', marginTop: '-0.6em' }} className="success_msg" id='success_msg'>Trip Reserved Successfully with <b><i>Trip Name:</i></b> <b><u>{success}</u></b></div>}
-                    </div>
+                    {formError &&
+									<Stack sx={{ width: '100%' }} spacing={2}>
+										<Alert style={{ color: 'red' }} serverity="error">{formError}</Alert>
+									</Stack>
+								}
+                {success &&
+									<Stack sx={{ width: '100%' }} spacing={2}>
+										<Alert style={{ color: 'teal' }} serverity="success">Trip Reserved Successfully with <b><i>Trip Name:</i></b> <b><u>{success}</u></b></Alert>
+									</Stack>
+								}      
+                </div>                
                   </div>
                 </form>
 

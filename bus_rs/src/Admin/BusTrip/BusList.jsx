@@ -21,7 +21,7 @@ function EditToolbar(props) {
   };
 
   return (
-    <GridToolbarContainer>
+    <GridToolbarContainer style={{marginLeft:'3em'}}>
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
         Add record
       </Button>
@@ -119,11 +119,12 @@ const BusList = () => {
     },
   ];
 	return (
-		<div className="main" >
-			<main className="app">
-				<div className="screen-wrap">
-					<section className="screen-home">
-						
+    <div className="main" >
+      <main className="app">
+        <div className="screen-wrap">
+          <section className="screen-home">
+            <div className="screen-home__form-wrap">
+              <div className="screen-home__form">
 					<Box sx={{ height: 400, width: '100%',
           '& .actions': {
 									color: 'text.secondary',
@@ -152,8 +153,11 @@ const BusList = () => {
 							/>
 						</Box>
 						{formError && <div className="error_msg" id='error_msg'>{formError}</div>}
+            </div>
+        </div>
 					</section>
 				</div>
+        
 			</main>
 		</div>
 	)

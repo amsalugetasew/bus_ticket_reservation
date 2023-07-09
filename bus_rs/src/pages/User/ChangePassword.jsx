@@ -2,6 +2,15 @@ import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import "./Style.scss"
 import axios from 'axios';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import { VisibilityOff } from '@mui/icons-material';
 const ChangePassword = () => {
     const { email } = useParams()
 	const [form, setForm] = useState({
@@ -9,17 +18,28 @@ const ChangePassword = () => {
 		password: "",
 		cpassword: ""
 	})
+	const [showPassword, setShowPassword] = useState(false);
+	const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+	const handleMouseDownPassword = (event) => {
+		event.preventDefault();
+	};
+
+	const handleChange = ({ currentTarget: input }) => {
+		setForm({ ...form, [input.name]: input.value });
+		setFormError("")
+	};
 	const [formError, setFormError] = useState("");
 	const navigate = useNavigate();
 
 	// These methods will update the state properties.
-	function updateForm(value) {
-		setFormError("")
-		return setForm((prev) => {
-			return { ...prev, ...value };
-		});
+	// function updateForm(value) {
+	// 	setFormError("")
+	// 	return setForm((prev) => {
+	// 		return { ...prev, ...value };
+	// 	});
 		
-	}
+	// }
 
 	// This function will handle the submission.
 	async function onSubmit(e) {
@@ -54,7 +74,57 @@ const ChangePassword = () => {
 						<div className="screen-home__form-wrap">
 							<div className="screen-home__form" id='background'>
 								<form>
-									<div id="formdetail">
+								<Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+																						
+										<FormControl sx={{ m: 1, width: '45ch' }} variant="outlined">
+											<InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+											<OutlinedInput
+												id="outlined-adornment-password"
+												type={showPassword ? 'text' : 'password'}
+												endAdornment={
+													<InputAdornment position="end">
+														<IconButton
+															aria-label="toggle password visibility"
+															onClick={handleClickShowPassword}
+															onMouseDown={handleMouseDownPassword}
+															edge="end"
+														>
+															{showPassword ? <VisibilityOff /> : <Visibility />}
+														</IconButton>
+													</InputAdornment>
+												}
+												label="New Password"
+												name= 'password'
+												value={form.password}
+												onChange={handleChange}
+											/>
+										</FormControl>
+										<FormControl sx={{ m: 1, width: '45ch' }} variant="outlined">
+											<InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+											<OutlinedInput
+												id="outlined-adornment-password"
+												type={showPassword ? 'text' : 'password'}
+												endAdornment={
+													<InputAdornment position="end">
+														<IconButton
+															aria-label="toggle password visibility"
+															onClick={handleClickShowPassword}
+															onMouseDown={handleMouseDownPassword}
+															edge="end"
+														>
+															{showPassword ? <VisibilityOff /> : <Visibility />}
+														</IconButton>
+													</InputAdornment>
+												}
+												label="Confirmation Password"
+												name= 'cpassword'
+												value={form.cpassword}
+												onChange={handleChange}
+											/>
+										</FormControl>
+
+									</Box>
+									{/* <div id="formdetail">
 										<div className="screen-home__location">
 											<div className="lable">
 												<span className="text">Change Password Details</span>
@@ -88,7 +158,7 @@ const ChangePassword = () => {
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> */}
 									<div className="screen-home__submit-wrap">
 										<span className="line">
 										{formError && <div className="error_msg" id='error_msg'>{formError}</div>}
@@ -101,6 +171,9 @@ const ChangePassword = () => {
 											</figure>
 										</div>
 									</div>
+									{formError &&
+											<Alert style={{marginLeft:'-25em', marginBottom:'5em', color:'red'}} severity='error'>({formError})</Alert>
+										}
 								</form>
 							</div>
 						</div>

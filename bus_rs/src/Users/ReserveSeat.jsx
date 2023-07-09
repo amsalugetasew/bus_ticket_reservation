@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react'
 import {useParams } from 'react-router-dom';
 import './User.scss'
 import axios from 'axios';
+import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import { Stack } from '@mui/material';
 const ReserveSeat = () => {
   const [form, setForm] = useState({
     firstName: "",
@@ -15,9 +19,16 @@ const ReserveSeat = () => {
   })
   const [formError, setFormError] = useState("");
   const [success, setSuccess] = useState("")
-  const updateForm = ({ currentTarget: input }) => {
-    setForm({ ...form, [input.name]: input.value });
-  };
+  // const updateForm = ({ currentTarget: input }) => {
+  //   setForm({ ...form, [input.name]: input.value });
+  //   setFormError("");
+  //   setSuccess("");
+  // };
+  const handleChange = ({ currentTarget: input }) => {
+		setForm({ ...form, [input.name]: input.value });
+		setFormError("");
+    setSuccess("");
+	};
   const { id } = useParams();
   async function onSubmit(e) {
     e.preventDefault();
@@ -60,84 +71,68 @@ const ReserveSeat = () => {
 								<form>
 									<div id="formdetail">
 										<div className="screen-home__location">
-											<div className="lable">
+											<div className="lable" style={{marginLeft:'10em'}}>
 												<figure className="icon"><img src="https://i.ibb.co/KwnYdXN/location.png" alt='ic' /></figure>
 												<span className="text">Reservation Details</span>
 											</div>
-											<div className="screen-home__date">
-												<div className="input-wrap">
-													<div className="inside-wrap">
-														<span className="inside-lable">First Name</span>
-														<input name='firstName' id='firstName'
-															className='input'
-															value={form.firstName}
-															onChange={updateForm}
-														/>
-													</div>
-												</div>
-											</div>
-											<div className="screen-home__date">
-												<div className="input-wrap">
-													<div className="inside-wrap">
-														<span className="inside-lable">Middle Name</span>
-														<input name='middleName' id='middleName'
-															className='input'
-															value={form.middleName}
-															onChange={updateForm}
-														/>
-													</div>
-												</div>
-											</div>
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', marginLeft:'10em'}}>
+										<TextField
+											sx={{ m: 1, width: '45ch' }}
+											id="outlined-basic"
+											label="First Name"
+											variant="outlined"
+											name='firstName'
+											value={form.firstName}
+											onChange={handleChange}
+										/>
+										<TextField
+											sx={{ m: 1, width: '45ch' }}
+											id="outlined-basic"
+											label="middleName"
+											variant="outlined"
+											name='middleName'
+											value={form.middleName}
+											onChange={handleChange}
+										/>
+                    <TextField
+											sx={{ m: 1, width: '45ch' }}
+											id="outlined-basic"
+											label="Last Name"
+											variant="outlined"
+											name='lastName'
+											value={form.lastName}
+											onChange={handleChange}
+										/>
+                    <TextField
+											sx={{ m: 1, width: '45ch' }}
+											id="outlined-basic"
+											label="Email"
+											variant="outlined"
+											name='email'
+											value={form.email}
+											onChange={handleChange}
+										/>
+										<TextField
+											sx={{ m: 1, width: '45ch' }}
+											id="outlined-basic"
+											label="Phone Number"
+											variant="outlined"
+											name='phoneNumber'
+											value={form.phoneNumber}
+											onChange={handleChange}
+										/>
+										<TextField
+											sx={{ m: 1, width: '45ch' }}
+											id="outlined-basic"
+											label="Age"
+											variant="outlined"
+											name='age'
+											value={form.age}
+											onChange={handleChange}
+										/>
 
-											<div className="screen-home__date">
-												<div className="input-wrap">
-													<div className="inside-wrap">
-														<span className="inside-lable">Last Name</span>
-														<input name='lastName' id='lastName'
-															className='input'
-															value={form.lastName}
-															onChange={updateForm}
-														/>
-													</div>
-												</div>
+									</Box>
 											</div>
-											<div className="screen-home__date">
-												<div className="input-wrap">
-													<div className="inside-wrap">
-														<span className="inside-lable">Passanger Age</span>
-														<input name='age' id='age'
-															className='input'
-															value={form.age}
-															onChange={updateForm}
-														/>
-													</div>
-												</div>
-											</div>
-											<div className="screen-home__date">
-												<div className="input-wrap">
-													<div className="inside-wrap">
-														<span className="inside-lable">E-mail</span>
-														<input name='email' id='email'
-															className='input'
-															value={form.email}
-															onChange={updateForm}
-														/>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div className="screen-home__date">
-											<div className="input-wrap">
-												<div className="inside-wrap">
-													<span className="inside-lable">Phone Number</span>
-													<input name='phoneNumber' id='phoneNumber'
-														className='input'
-														value={form.phoneNumber}
-														onChange={updateForm}
-													/>
-												</div>
-											</div>
-										</div>
 									</div>
 									<div className="screen-home__submit-wrap">
 										<span className="line"></span>
@@ -147,17 +142,26 @@ const ReserveSeat = () => {
 											</figure>
 										</div>
 									</div>
+
 								</form>
 							</div>
 							<div className="screen-home__recent-search">
 								<div className="lable">
 									<figure className="icon"><img src="https://i.ibb.co/dM8cwj6/recent-search.png" alt='btn' /></figure>
 									<span className="text">Recent search</span>
-									{formError && <div className="error_msg" id='error_msg'>{formError}</div>}
-									{success && <div className="success_msg" id='success_msg'>Reserved Successfully
-										<div>{form.firstName} Your <b><i>PSR Code</i></b> is: <b><u><i><span>{success}</span></i></u></b></div>
+									{formError &&
+                   <Stack sx={{ width: '100%' }} spacing={2}>
+											<Alert style={{color:'red'}} serverity="info">{formError}</Alert>
+										</Stack>
+                  }
+									{success && 
+                    <Stack sx={{ width: '100%' }} spacing={2}>
+											<Alert style={{color:'teal'}} serverity="info">Reserved Successfully 
+                      <div>{form.firstName} Your <b><i>PSR Code</i></b> is: <b><u><i><span>{success}</span></i></u></b></div>
 										<div>For More use your <b><i>Departing time, Phone Number, and PSR code</i></b></div>
-									</div>}
+                      </Alert>
+										</Stack>
+                    }
 								</div>
 
 

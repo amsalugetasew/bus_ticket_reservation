@@ -26,9 +26,12 @@ const AdminLayout = () => {
                                     <Link to={`/Admin/Bus_reg/${email}`}> <FaBusAlt size='1rem' />Add Bus</Link>
                                 </li>
                                 <li>
-                                    <Link to={`/Admin/Trip_reg/${email}`}><BiTrip size={'1em'} /> Add Trip</Link>
+                                    <Link to={`/Admin/Trip_reg/${email}`}><BiTrip size={'1em'} marginRight='0.6em'/> Add Trip</Link>
                                 </li>
-                                <li> <Link to="#" id='admins'><FaRegUser id='admin' size='2rem' /></Link> Getasew Amsalu
+                                <li> <Link to="#" id='admins'>
+                                    Profile
+                                    {/* <FaRegUser id='admin' size='2rem' /> */}
+                                    </Link>
                                     <div id='sub-menu'>
                                         <ul>
                                             <li><Link to='/Admin/Signup/'> Create User</Link></li>

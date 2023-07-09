@@ -4,6 +4,17 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import View from '../../pages/Image/view.jfif'
 import Register from '../../pages/Image/register.jfif'
 import { Stack, Autocomplete, TextField } from '@mui/material'
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 const City = [
   {
     label: "City",
@@ -47,6 +58,7 @@ const City = [
   },
 ];
 const RegitserTrip = () => {
+
   const [form, setForm] = useState({
     TripName: "",
     BusNumber: "",
@@ -66,14 +78,72 @@ const RegitserTrip = () => {
   const [formError, setFormError] = useState("");
   const [success, setSuccess] = useState("")
   const navigate = useNavigate();
-  const updateForm = ({ currentTarget: input }) => {
+  // const updateForm = ({ currentTarget: input }) => {
 
-    setForm({ ...form, [input.name]: input.value });
-    setFormError("");
-    setSuccess("");
+  //   setForm({ ...form, [input.name]: input.value });
+  //   setFormError("");
+  //   setSuccess("");
+  // };
+  const [PlateNumber, setPlateNumber] = useState('');
+  const [SeatNumber, setSeatNumber] = useState('');
+  const handlePlate = (event) => {
+    setPlateNumber(event.target.value);
   };
+  const handleSeat = (event) => {
+    setSeatNumber(event.target.value);
+  };
+  
+  // window.alert(age+times)
+  const [times, setTimes] = useState("")
+  const [atimes, setATimes] = useState("")
+  // console.log(times)
+
+  const [date, setDate] = useState()
+let d = new Date(times);
+let cminute = d.getMinutes();
+let chour = d.getHours();
+
+if (chour < 10) {
+  chour = '0' + chour
+}
+if (cminute < 10) {
+  cminute = '0' + cminute
+}
+let a = new Date(atimes);
+let aminute = a.getMinutes();
+let ahour = a.getHours();
+
+if (ahour < 10) {
+  ahour = '0' + ahour
+}
+if (aminute < 10) {
+  aminute = '0' + aminute
+}
+const showTime = chour.toString() +':'+ cminute.toString()
+const ashowTime = ahour.toString() +':'+ aminute.toString()
+// window.alert(showTime)
+  // window.alert(mytime)
+  let mydate = new Date(date)
+  let dateto = ""
+  if (mydate) {
+    let year = mydate.getFullYear();
+    let month = mydate.getMonth() + 1;
+    let day = mydate.getDate()
+    if (day < 10) {
+      day = '0' + day
+    }
+    if (month < 10) {
+      month = '0' + month;
+    }
+    dateto = year + '-' + month + '-' + day
+  }
+  form.Date = dateto
   form.DepartingCity = selectedDep.value
   form.DestinationCity = selectedDes.value
+  form.plateNumber = PlateNumber;
+  form.seatNumber = SeatNumber
+  form.Time = showTime;
+  form.Arriv_Time = ashowTime
   const handleSubmit = async () => {
     const newBus = { ...form };
     if (form.plateNumber.trim().length === 0) {
@@ -221,45 +291,57 @@ const RegitserTrip = () => {
                             src={View} alt='ic' /></figure>
                         </Link>
                       </div>
+
+                      
                       <div className="input-wrap" >
                         <div className="inside-wrap" id='flex'>
-                          <div className="from" style={{ marginTop: '-0.5em' }}>
-                            <span className="inside-lable" style={{color:'teal'}}>Plate Number</span>
-                            <select name='plateNumber' id='plateNumber'
-                              value={form.plateNumber}
-                              onChange={updateForm}
+                          <FormControl sx={{ m: 1, minWidth: 120, width:'36ch' }}>
+                            <InputLabel id="demo-simple-select-error-label">Plate Number</InputLabel>
+                            <Select
+                              labelId="demo-simple-select-error-label"
+                              id="demo-simple-select-error"
+                              name='plateNumber'
+                              value={PlateNumber}
+                              label="Plate Number"
                               onMouseLeave={getSingleRecords}
-                              className='input'
+                              onChange={handlePlate}
                             >
-                              <option value="Plate Number" style={{color:'teal', backgroundColor:'transparent'}}>Plate Number</option>
+                              <MenuItem value="">
+                                <em>None</em>
+                              </MenuItem>
                               {Data.map((item, i) => (
-                                <option value={item.plateNumber}>{item.plateNumber}</option>
+                                <MenuItem value={item.plateNumber}>{item.plateNumber}</MenuItem>
                               ))}
-                            </select>
-                          </div>
-                          <div className="To" style={{ width: '25em' }}>
-                            <span className="inside-lable" style={{color:'teal'}}>Number of Seat</span>
-                            <select name='seatNumber' id='seatNumber'
-                              className='input'
-                              value={form.seatNumber}
-                              onMouseMove={updateForm}
+                            </Select>
+                          </FormControl>
+                          <FormControl sx={{ m: 1, minWidth: 120, width: '36ch' }}>
+                            <InputLabel id="demo-simple-select-error-label">Number of Seat</InputLabel>
+                            <Select
+                              labelId="demo-simple-select-error-label"
+                              id="demo-simple-select-error"
+                              value={SeatNumber}
+                              label="Number of Seat"
+                              onChange={handleSeat}
                             >
+                              <MenuItem value="">
+                                <em>None</em>
+                              </MenuItem>
                               {singleTrip.map((item, i) => (
-                                <option value={item.seatNumber}>{item.seatNumber}</option>
+                                <MenuItem value={item.seatNumber}>{item.seatNumber}</MenuItem>
                               ))}
-                            </select>
-                          </div>
+                            </Select>
+                          </FormControl>
                         </div>
                       </div>
                       <div className="input-wrap" >
                         <div className="inside-wrap" id='flex'>
-                          <div className="from" style={{ marginTop: '-0.5em', marginRight: '1em' }}>
-                            <Stack spacing={1} width='250px' height = '10px' >
+                          <div className="from" style={{ marginTop: '-0.5em', marginRight:'2.6em', marginLeft:'-0.6em'}}>
+                            <Stack spacing={3} width='250px' height='10px' >
                               <Autocomplete
                                 disablePortal
                                 id="combo-box-demo"
                                 options={City}
-                                sx={{ width: 300, height: 10 }}
+                                sx={{ width: '36ch', height: 10 }}
                                 value={selectedDep}
                                 onChange={handleChanges}
                                 renderInput={(params) => <TextField {...params} label="Source City" className='input' />}
@@ -272,7 +354,7 @@ const RegitserTrip = () => {
                                 disablePortal
                                 id="combo-box-demo"
                                 options={City}
-                                sx={{ width: 370 }}
+                                sx={{ width: '36ch' }}
                                 value={selectedDes}
                                 onChange={handleChangest}
                                 renderInput={(params) => <TextField {...params} label="Destination City" className='input' />}
@@ -314,23 +396,53 @@ const RegitserTrip = () => {
                           </div>
                         </div>
                       </div> */}
-                      <div className="To" style={{ marginLeft:'1.5em', marginBottom:'1em'}}>
-                        <div className="lable">
+                      <div className="To" style={{marginBottom: '1em' }}>
+                        <Box component="form"
+
+                          sx={{
+                            '& > :not(style)': { m: 1, width: '74ch', marginLeft:'1em' },
+                          }}
+                        >
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                              id="outlined-basic" label="Date" variant="oulined"
+                              selected={date} onChange={date => setDate(date)}
+                            />
+                          </LocalizationProvider>
+                        </Box>
+                        {/* <div className="lable">
                           <figure className="icon"><img src="https://i.ibb.co/7N5zdnc/calendar.png" alt='dt' /></figure>
                           <span className="text">Date Details</span>
                         </div>
 
-                            <input type="date" name="Date"
-                              id="Date" placeholder="Date " required
-                              value={form.Date}
-                              onChange={updateForm}
-                              className='input'
-                              style={{ width: '670px', opacity:'0.5', color:'black', border: '1px black solid' }}
-                            />
+                        <input type="date" name="Date"
+                          id="Date" placeholder="Date " required
+                          value={form.Date}
+                          onChange={updateForm}
+                          className='input'
+                          style={{ width: '670px', opacity: '0.5', color: 'black', border: '1px black solid' }}
+                        /> */}
                       </div>
-                      <div className="input-wrap" >
-                        <div className="inside-wrap" id='flex'>
-                          <div className="rotate-btn" >
+                        <div  id='flex'style={{width:'80ch'}}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs} width='36ch' marginRight='2.6em' marginLeft='1em'>
+                        <DemoContainer components={['TimePicker']} >
+                          <TimePicker label="Start Time"
+                          
+                            selected={times} onChange={times => setTimes(times)}
+                          />
+                        </DemoContainer>
+                      </LocalizationProvider>
+                      <Box>
+                      <LocalizationProvider dateAdapter={AdapterDayjs} >
+                        <DemoContainer components={['TimePicker']} width='60ch'>
+                          <TimePicker label="Arrival Time"
+                            selected={atimes} onChange={times => setATimes(times)}
+                          />
+                        </DemoContainer>
+                      </LocalizationProvider>
+                      </Box>
+                      
+                          {/* <div className="rotate-btn" >
                             <figure style={{ marginLeft: '-21em' }}>
                               <img src="https://i.ibb.co/HPBrQkn/rotate-btn.png" alt='rt' />
                             </figure>
@@ -352,8 +464,7 @@ const RegitserTrip = () => {
                               value={form.Arriv_Time}
                               onChange={updateForm}
                             />
-                          </div>
-                        </div>
+                          </div> */}
                       </div>
                     </div>
                   </div>
@@ -369,8 +480,16 @@ const RegitserTrip = () => {
                   </div>
                   <div className="screen-home__recent-search">
                     <div className="lable" style={{ marginTop: '-5em', marginLeft: '6em' }}>
-                      {formError && <div className="error_msg" id='error_msg'>{formError}</div>}
-                      {success && <div style={{ marginLeft: '-3em', backgroundColor: 'white', marginTop: '-0.6em' }} className="success_msg" id='success_msg'>Trip Reserved Successfully with <b><i>Trip Name:</i></b> <b><u>{success}</u></b></div>}
+                      {formError &&
+                        <Stack sx={{ width: '100%' }} spacing={2}>
+                          <Alert style={{ color: 'teal' }} serverity="success">{formError}</Alert>
+                        </Stack>
+                      }
+                      {success &&
+                        <Stack sx={{ width: '100%' }} spacing={2}>
+                          <Alert style={{ color: 'teal' }} serverity="success">Trip Reserved Successfully with <b><i>Trip Name:</i></b> <b><u>{success}</u></b></Alert>
+                        </Stack>
+                      }
                     </div>
                   </div>
                 </form>

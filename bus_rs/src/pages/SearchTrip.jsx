@@ -11,6 +11,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Alert from '@mui/material/Alert';
+// import { DateField } from '@mui/x-date-pickers';
+// import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 const City = [
 	{
 		label: "City",
@@ -61,7 +63,7 @@ const SearchTrip = () => {
 	const handleChanges = (e, v) => setSelected_Dest(v);
 	const [Data, setData] = useState([]);
 	const [dates, setDates] = useState("")
-	const [form, setForm] = useState({
+	const [form] = useState({
 		Date: "",
 		source: "",
 		dest: ""
@@ -72,27 +74,21 @@ const SearchTrip = () => {
 	const [date, setDate] = useState()
 	let mydate = new Date(date)
 	let dateto = ""
-	if (mydate){
-	let year = mydate.getFullYear();
-	let month = mydate.getMonth();
-	let day = mydate.getDate()
-	if (day < 10){
-		day = '0'+ day
-	}
-	if(month < 10){
-		month = '0'+month;
-	}
-	 dateto = year+'-'+month+'-'+day
-	// window.alert(form.Date)
-	// window.alert(dateto)
+	if (mydate) {
+		let year = mydate.getFullYear();
+		let month = mydate.getMonth() + 1;
+		let day = mydate.getDate()
+		if (day < 10) {
+			day = '0' + day
+		}
+		if (month < 10) {
+			month = '0' + month;
+		}
+		dateto = year + '-' + month + '-' + day
 	}
 	form.source = selected.value
 	form.dest = selected_Dest.value
 	form.Date = dateto
-	const updateForm = ({ currentTarget: input }) => {
-		setForm({ ...form, [input.name]: input.value });
-	};
-
 	const getRecords = async (e) => {
 		e.preventDefault();
 		setDates(form.Date)
@@ -186,20 +182,8 @@ const SearchTrip = () => {
 						<div className="screen-home__form-wrap">
 							<div className="screen-home__form">
 								<form>
-									<Box component = "form"
-									sx={{
-										'& > :not(style)':{m: 1, width: '25ch'},
-									}}
-									>
-										<LocalizationProvider dateAdapter={AdapterDayjs}>
-										<DatePicker 
-										id="outlined-basic" label="Date" variant="oulined"
-										selected={date} onChange={date => setDate(date)}
-										/>
-									</LocalizationProvider>
-									{/* <TextField id="outlined-basic" label="Date" variant="oulined"/> */}
-									</Box>
-									
+
+
 									<div id="formdetail">
 										<div className="screen-home__location">
 											<div className="lable">
@@ -209,19 +193,19 @@ const SearchTrip = () => {
 											</div>
 											<div className="input-wrap" style={{ backgroundColor: 'white' }}>
 												<div className="inside-wrap" style={{ backgroundColor: 'white' }}>
-													<div className="rotate-btn" style={{ marginTop: '0.5em' }}>
+													{/* <div className="rotate-btn" style={{ marginTop: '0.5em' }}>
 														<figure>
 															<img src="https://i.ibb.co/HPBrQkn/rotate-btn.png" alt='rt' />
 														</figure>
-													</div>
+													</div> */}
 													<div className="from" style={{ backgroundColor: 'white' }}>
 														{/* <span className="inside-lable">From</span> */}
-														<Stack spacing={2} width='250px' backgroundColor='white'>
+														<Stack spacing={2} width='45ch' marginLeft='10em' backgroundColor='white'>
 															<Autocomplete
 																disablePortal
 																id="combo-box-demo"
 																options={City}
-																sx={{ width: 700, marginLeft: '-1em', marginBottom: '2.5em' }}
+																sx={{ width: '45ch', marginLeft: '-1em' }}
 																value={selected}
 																onChange={handleChange}
 																renderInput={(params) => <TextField {...params} label="Source City" className='input' />}
@@ -229,12 +213,12 @@ const SearchTrip = () => {
 														</Stack>
 													</div>
 													<div className="To">
-														<Stack spacing={2} width='250px' backgraoundColor='white'>
+														<Stack spacing={2} width='45ch' marginLeft='10em' backgraoundColor='white'>
 															<Autocomplete
 																disablePortal
 																id="combo-box-demo"
 																options={City}
-																sx={{ width: 700 }}
+																sx={{ width: '45ch' }}
 																value={selected_Dest}
 																onChange={handleChanges}
 																renderInput={(params) => <TextField {...params}
@@ -246,17 +230,18 @@ const SearchTrip = () => {
 
 												</div>
 												<div className="To">
-													<div className="lable">
-														<figure className="icon"><img src="https://i.ibb.co/7N5zdnc/calendar.png" alt='dt' /></figure>
-														<span className="text">Date Details</span>
-													</div>
-													<input type="date" name="Date"
-														id="Date" placeholder="Date " required
-														value={form.Date}
-														onChange={updateForm}
-														className='input'
-														style={{ width: '700px', opacity: '0.5', color: 'black', border: '1px black solid' }}
-													/>
+													<Box component="form"
+														sx={{
+															'& > :not(style)': { m: 1, width: '45ch', marginLeft:'10em' },
+														}}
+													>
+														<LocalizationProvider dateAdapter={AdapterDayjs}>
+															<DatePicker
+																id="outlined-basic" label="Date" variant="oulined"
+																selected={date} onChange={date => setDate(date)}
+															/>
+														</LocalizationProvider>
+													</Box>
 												</div>
 											</div>
 										</div>
@@ -309,11 +294,11 @@ const SearchTrip = () => {
 										</ul>
 									</div>
 									: <>{dates ?
-									//  <div className="error_msg" id='error_msg'>No Available Trip</div>
-									 <Stack sx = {{width: '100%'}} spacing = {2}>
-										<Alert serverity = "info">No Available Trip</Alert>
-									 </Stack>
-									  : ""} </>}
+										//  <div className="error_msg" id='error_msg'>No Available Trip</div>
+										<Stack sx={{ width: '100%' }} spacing={2}>
+											<Alert style={{color:'gold'}} serverity="info">No Available Trip</Alert>
+										</Stack>
+										: ""} </>}
 							</div>
 						</div>
 					</section>

@@ -66,7 +66,7 @@ const TripList = () => {
 
 
   const columns = [
-    { field: '_id', headerName: 'ID', width: 180, editable: true },
+    { field: 'plateNumber', headerName: 'Plate Number', width: 100, editable: true },
     {
 			field: 'TripName',
 			headerName: 'Trip Name',
