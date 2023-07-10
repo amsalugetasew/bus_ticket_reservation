@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import {useNavigate, useParams } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
@@ -36,22 +36,17 @@ function Signup() {
 		setError("");
 		setFormError("");
 	};
-	// const [data, setData] = useState({
-	// 	firstName: "",
-	// 	lastName: "",
-	// 	role: "",
-	// 	email: "",
-	// 	password: "",
-	// 	cpassword: ""
-	// });
-	const { email } = useParams()
-	// const [Cpasswords, setCpassword] = useState({ Cpassword: "" });
-	
-	// const handleChange = ({ currentTarget: input }) => {
-	// 	setData({ ...data, [input.name]: input.value });
-	// 	setError("");
-	// 	setFormError("");
-	// };
+	// Fetch User Data that are stored on local storage during login
+	const [users, setUsers] = useState([])
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('User'))
+        if (user) {
+            setUsers(user)
+        }
+    }, [])
+	let email;
+	email = users[0].email;
+	// Fetch User Data from db for validation 
 	async function getUserData() {
 		const formval = { email };
 		const requestOptions = {
@@ -73,12 +68,10 @@ function Signup() {
 
 
 
-	
+	// Handle submit to signup user
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// window.alert(data.email)
 		form.role = 'Admin';
-		// window.alert(form.email)
 		const newPerson = { ...form };
 		if (!isNaN(form.firstName)) {
 			setFormError("First Name couldn't be number")
@@ -109,6 +102,7 @@ function Signup() {
 					<section className="screen-home">
 						<div className="screen-home__form-wrap">
 							<div className="screen-home__form" id='background'>
+								{/* Signup User Form */}
 								<form>
 								<Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
 										<TextField

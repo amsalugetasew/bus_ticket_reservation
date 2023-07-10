@@ -1,12 +1,18 @@
-import React from 'react'
-import { Link, Outlet, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { Link, Outlet } from 'react-router-dom';
 import "./Admin.scss"
 import { BiTrip, BiEditAlt, BiLogOutCircle } from 'react-icons/bi'
 import { GiCarSeat } from 'react-icons/gi'
 import { FaRegUser, FaBusAlt } from 'react-icons/fa'
 import logo from '../../pages/Image/golden_bus.jfif';
 const AdminLayout = () => {
-    const { email } = useParams();
+    const [users, setUsers] = useState([])
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('User'))
+        if (user) {
+            setUsers(user)
+        }
+    }, [])
     return (
         <>
             <nav>
@@ -26,15 +32,14 @@ const AdminLayout = () => {
                                     <Link to='/Admin/Bus_reg/'><FaBusAlt size='1rem' id='icon' />Add Bus</Link>
                                 </li>
                                 <li>
-                                    <Link to='/Admin/Trip_reg/'><BiTrip size={'1em'} id='icon'/> Add Trip</Link>
+                                    <Link to='/Admin/Trip_reg/'><BiTrip size={'1em'} id='icon' /> Add Trip</Link>
                                 </li>
                                 <li> <Link to="#" id='admins'>
-                                    Profile
-                                    {/* <FaRegUser id='admin' size='2rem' /> */}
-                                    </Link>
+                                {users[0] && users[0].firstName}
+                                </Link>
                                     <div id='sub-menu'>
                                         <ul>
-                                            <li><Link to='/Admin/Signup/'> <FaRegUser id='icon' size={'1em'}/>Create User</Link></li>
+                                            <li><Link to='/Admin/Signup/'> <FaRegUser id='icon' size={'1em'} />Create User</Link></li>
                                             <li><Link to='/Admin/Signup/'><BiEditAlt id='icon' size={'1em'} /> Edit User</Link></li>
                                             <li><Link to='/Admin/changePassword/'> <BiEditAlt id='icon' size={'1em'} />Change Password </Link></li>
                                             <li><Link to="/Signin"><BiLogOutCircle id='icon' size='1em' /> Logout</Link></li>

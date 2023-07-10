@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import "./Style.scss"
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
@@ -12,12 +12,19 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import { VisibilityOff } from '@mui/icons-material';
 const ChangePassword = () => {
-    const { email } = useParams()
 	const [form, setForm] = useState({
 		email: "",
 		password: "",
 		cpassword: ""
 	})
+	// Fetch stored Data during login
+	const [users, setUsers] = useState([])
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('User'))
+        if (user) {
+            setUsers(user)
+        }
+    }, [])
 	const [showPassword, setShowPassword] = useState(false);
 	const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -31,21 +38,13 @@ const ChangePassword = () => {
 	};
 	const [formError, setFormError] = useState("");
 	const navigate = useNavigate();
-
-	// These methods will update the state properties.
-	// function updateForm(value) {
-	// 	setFormError("")
-	// 	return setForm((prev) => {
-	// 		return { ...prev, ...value };
-	// 	});
-		
-	// }
-
-	// This function will handle the submission.
+	// Get Email from Logged User
+	let email;
+	email = users[0].email;
+	// This function will handle the submission. that change password by using Logged Email
 	async function onSubmit(e) {
 		e.preventDefault();
 		form.email = email;
-		// console.log(form.password, form.cpassword )
 		if (form.password === form.cpassword) {
 			const newPerson = { ...form };
 			axios.post('http://localhost:8000/change/password', newPerson)

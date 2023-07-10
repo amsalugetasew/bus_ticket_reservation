@@ -23,6 +23,7 @@ function RegisterBus() {
     setSuccess("")
     setFormError("")
   };
+  // Submit for new Record Function code
   const handleSubmit = async (e) => {
     const newBus = { ...form };
     if (form.busNumber.trim().length === 0) {
@@ -49,6 +50,7 @@ function RegisterBus() {
       getSingleBus(id);
     }
   }, [id]);
+  // Getting single Recorded Bus data for Edit Purpose
   const getSingleBus = async (id) => {
     const response = await axios.get(`http://localhost:8000/bus/${id}`);
     if (response.status === 200) {
@@ -56,6 +58,7 @@ function RegisterBus() {
     }
 
   }
+  // Edit Record Function
   const handleEdit = async (id) => {
     const newBus = { ...form };
     if (form.busNumber.trim().length === 0) {
@@ -67,6 +70,7 @@ function RegisterBus() {
       navigate("/Admin/bus_list");
     }
   }
+  // Submit either New Record data or Edit existing data function call
   const onSubmit = (e) => {
     e.preventDefault();
     if (!id) {
@@ -83,6 +87,7 @@ function RegisterBus() {
           <section className="screen-home">
             <div className="screen-home__form-wrap">
               <div className="screen-home__form">
+                {/* Bus Record Form */}
                 <form>
                   <div id="formdetail">
                     <div className="screen-home__location">

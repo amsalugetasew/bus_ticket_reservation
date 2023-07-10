@@ -69,7 +69,8 @@ export const login = (req, res) => {
             if (user.length !== 0) {
                 decPassword = cryptr.decrypt(user[0].password)
                 if (decPassword === userPassword) {
-                    res.send(userEmail)
+                    // console.log(user)
+                    res.send(user)
                 }
                 else {
                     res.send("Incorrect Email or Password")

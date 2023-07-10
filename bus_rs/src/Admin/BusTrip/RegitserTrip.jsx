@@ -78,12 +78,6 @@ const RegitserTrip = () => {
   const [formError, setFormError] = useState("");
   const [success, setSuccess] = useState("")
   const navigate = useNavigate();
-  // const updateForm = ({ currentTarget: input }) => {
-
-  //   setForm({ ...form, [input.name]: input.value });
-  //   setFormError("");
-  //   setSuccess("");
-  // };
   const [PlateNumber, setPlateNumber] = useState('');
   const [SeatNumber, setSeatNumber] = useState('');
   const handlePlate = (event) => {
@@ -93,12 +87,11 @@ const RegitserTrip = () => {
     setSeatNumber(event.target.value);
   };
   
-  // window.alert(age+times)
   const [times, setTimes] = useState("")
   const [atimes, setATimes] = useState("")
-  // console.log(times)
 
   const [date, setDate] = useState()
+  // filter Start Time
 let d = new Date(times);
 let cminute = d.getMinutes();
 let chour = d.getHours();
@@ -109,6 +102,7 @@ if (chour < 10) {
 if (cminute < 10) {
   cminute = '0' + cminute
 }
+// filter Arrival Time
 let a = new Date(atimes);
 let aminute = a.getMinutes();
 let ahour = a.getHours();
@@ -121,8 +115,7 @@ if (aminute < 10) {
 }
 const showTime = chour.toString() +':'+ cminute.toString()
 const ashowTime = ahour.toString() +':'+ aminute.toString()
-// window.alert(showTime)
-  // window.alert(mytime)
+// fitering date
   let mydate = new Date(date)
   let dateto = ""
   if (mydate) {
@@ -144,6 +137,7 @@ const ashowTime = ahour.toString() +':'+ aminute.toString()
   form.seatNumber = SeatNumber
   form.Time = showTime;
   form.Arriv_Time = ashowTime
+  // Code for adding new record data
   const handleSubmit = async () => {
     const newBus = { ...form };
     if (form.plateNumber.trim().length === 0) {
@@ -189,7 +183,7 @@ const ashowTime = ahour.toString() +':'+ aminute.toString()
 
     }
   }
-
+// Code for fetch single trip data
   const { id } = useParams();
   useEffect(() => {
     if (id) {
@@ -202,6 +196,7 @@ const ashowTime = ahour.toString() +':'+ aminute.toString()
       setForm({ ...response.data })
     }
   }
+  // Code for Editting existing data
   const handleEdit = async (id) => {
     const newBus = { ...form };
     if (form.BusNumber.trim().length === 0) {
@@ -222,7 +217,7 @@ const ashowTime = ahour.toString() +':'+ aminute.toString()
       navigate("/Admin/trip_list");
     }
   }
-
+// function to call of submiting Edit existing or new data value to db
   const onSubmit = (e) => {
     e.preventDefault();
     if (!id) {
@@ -234,6 +229,7 @@ const ashowTime = ahour.toString() +':'+ aminute.toString()
   }
   const [singleTrip, setsingleTrip] = useState([]);
   const [Data, setData] = useState([]);
+  // get existing record for validation purpose (to handle trip duplication)
   async function getRecords() {
     const response = await fetch(`http://localhost:8000/bus/fetch/`);
     if (!response.ok) {
@@ -280,6 +276,7 @@ const ashowTime = ahour.toString() +':'+ aminute.toString()
           <section className="screen-home">
             <div className="screen-home__form-wrap">
               <div className="screen-home__form">
+                {/* Trip record form Page */}
                 <form>
                   <div id="formdetail">
                     <div className="screen-home__location">

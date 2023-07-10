@@ -36,7 +36,7 @@ function Signin() {
 		setForm({ ...form, [input.name]: input.value });
 		setFormError("")
 	};
-
+	// Handle Login store logged use profile on local storage
 	async function onSubmit(e) {
 		e.preventDefault();
 		const newPerson = { ...form };
@@ -47,8 +47,9 @@ function Signin() {
 					setFormError(res.data);
 				}
 				else {
-
-					navigate(`/Admin/user/${res.data}`)
+					localStorage.setItem('User', JSON.stringify(res.data));
+					// const session = localStaorage.getItem(res.data)
+					navigate(`/Admin/user/`)
 				}
 			})
 	}

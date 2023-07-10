@@ -21,7 +21,6 @@ import SeatInfo from "./Users/SeatInfo";
 import SingleSeat from "./Admin/BusTrip/SingleSeat";
 import ShowAvSeat from "./Admin/BusTrip/ShowAvSeat";
 import ChangePassword from "./pages/User/ChangePassword";
-import Resrvation from "./Admin/BusTrip/resrvation";
 import SearchTrip from "./pages/SearchTrip";
 function App() {
   return (
@@ -36,7 +35,6 @@ function App() {
           <Route path="Signup" element={<Signup />} />
           <Route path="UserList" element={<UserList/>}/>
           <Route path="search" element={<SearchTrip/>}/>
-          <Route path="reserve" element={<Resrvation/>}/>
           <Route path="Cancel_Trip" element={<CancelReservation />} />
           <Route path="Reserve_seat/:id" element={<ReserveSeat />} />
           
@@ -44,8 +42,7 @@ function App() {
 
         {/* //Admin Page Route */}
         <Route path="/Admin" element={<AdminLayout />}>
-        <Route path="user/:email" element={<ShowAvSeat />} />
-        <Route path="reserve/:email" element={<Resrvation />} />
+        <Route path="user/" element={<ShowAvSeat />} />
         <Route path="changePassword" element={<ChangePassword />} />
         <Route path="Signup/:email" element={<Signup />} />
         <Route path="Signup" element={<Signup />} />

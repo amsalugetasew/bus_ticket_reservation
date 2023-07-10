@@ -19,7 +19,7 @@ function EditToolbar(props) {
   const handleClick = () => {
    navigate('/Admin/Bus_reg')
   };
-
+// Code to redirect Bus Record Page
   return (
     <GridToolbarContainer style={{marginLeft:'3em'}}>
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
@@ -29,11 +29,11 @@ function EditToolbar(props) {
   );
 }
 
-// const Resrvation = () => {
 const BusList = () => {
   const [Data, setData] = useState([])
 	const [formError, setFormError] = useState("");
   const navigate = useNavigate();
+  // Code for data used to fetch recorded bus
 	async function getRecords() {
 		const response = await fetch(`http://localhost:8000/bus/fetch/`);
 		if (!response.ok) {
@@ -47,11 +47,11 @@ const BusList = () => {
 	useEffect(() => {
 		getRecords()
 	})
-
+// Code for redirect to Edit Bus Page
     const handleEditClick = (id) => () => {
     navigate(`/Admin/bus_reg/${id}`);
   };
-
+// Code for Remove specific Recorded Bus
   const handleDeleteClick = (id) => () => {
     if (window.confirm("Are you sure you want remove Bus")) {
 			const response =  axios.delete(`http://localhost:8000/bus/delete/${id}`);
@@ -65,9 +65,8 @@ const BusList = () => {
 		}
   };
 
-
+// define Filtered Data column and its Header
   const columns = [
-    { field: '_id', headerName: 'ID', width: 180, editable: true },
     {
       field: 'plateNumber',
       headerName: 'Plate Number',
@@ -125,6 +124,7 @@ const BusList = () => {
           <section className="screen-home">
             <div className="screen-home__form-wrap">
               <div className="screen-home__form">
+                {/* Data grid that used for display Bus Record */}
 					<Box sx={{ height: 400, width: '100%',
           '& .actions': {
 									color: 'text.secondary',

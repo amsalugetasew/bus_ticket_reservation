@@ -74,18 +74,22 @@ const Status = [
 		value: "Reserved",
 	}
 ];
-
+// This page code works for searching and retrieve available and researved seat both Per Trip and Per Bus
 const ShowAvSeat = () => {
+	// Get selected Trip Name value AutoComplete
 	const [selectedTrip, setSelectedTrip] = useState({ label: "" });
 	const handleChange = (e, v) => setSelectedTrip(v);
+	// Get selected Per Value Bus/Trip value AutoComplete
 	const [selectedPer, setSelectedPer] = useState({ label: "" });
 	const handleChanges = (e, v) => setSelectedPer(v);
+	// Get selected Status value AutoComplete
 	const [selectedStatus, setSelectedStatus] = useState({ label: "" });
 	const handleChangest = (e, v) => setSelectedStatus(v);
 
 	const [dates, setDates] = useState("")
 	const [Data, setData] = useState([]);
 	const [formError, setFormError] = useState("");
+	// Define form name
 	const [form, setForm] = useState({
 		Date: "",
 		plateNumber: "",
@@ -93,9 +97,11 @@ const ShowAvSeat = () => {
 		per: "",
 		status: ""
 	})
+	// Get some form Values
 	const updateForm = ({ currentTarget: input }) => {
 		setForm({ ...form, [input.name]: input.value });
 	};
+	// filter Date from Detailed selected date
 	const [date, setDate] = useState()
 	let mydate = new Date(date)
 	let dateto = ""
@@ -111,11 +117,11 @@ const ShowAvSeat = () => {
 		}
 		dateto = year + '-' + month + '-' + day
 	}
-	// setFormError(dateto)
 	form.Date = dateto
 	form.tripName = selectedTrip.value
 	form.per = selectedPer.value
 	form.status = selectedStatus.value
+	// Fetch Requested Data based on search criteria
 	const getRecords = async (e) => {
 		e.preventDefault();
 		setDates(form.Date)
@@ -134,7 +140,7 @@ const ShowAvSeat = () => {
 			})
 	}
 
-
+	// Define Column/Field Name and Its Header
 	const columns = [
 		{
 			field: 'plateNumber',
@@ -186,6 +192,7 @@ const ShowAvSeat = () => {
 					<section className="screen-home">
 						<div className="screen-home__form-wrap">
 							<div className="screen-home__form">
+								{/* form for search criteia */}
 								<form>
 									<div id="formdetail">
 										<div className="screen-home__location">
@@ -196,25 +203,18 @@ const ShowAvSeat = () => {
 											<div className="input-wrap" style={{ paddingTop: '2em' }}>
 												<div className="inside-wrap" id='flex'>
 													<div className="from" style={{ marginTop: '-2em' }}>
-														{/* <span className="inside-lable" >Plate Number</span> */}
-														{/* <input name='plateNumber' id='plateNumber'
+
+														<TextField
+															sx={{ m: 1, width: '35ch' }}
+															id="outlined-basic"
+															label="Plate Number"
+															variant="outlined"
+															name='plateNumber'
 															value={form.plateNumber}
 															onChange={updateForm}
-															className='input'
-															placeholder='Plate Number'
-															style={{ opacity: '0.5', border: '1px solid black', height: '2.5em' }}
-														/> */}
-														<TextField
-											sx={{ m: 1, width: '35ch' }}
-											id="outlined-basic"
-											label="Plate Number"
-											variant="outlined"
-											name='plateNumber'
-											value={form.plateNumber}
-											onChange={updateForm}
-										/>
+														/>
 													</div>
-													<div className="To" style={{ width: '30em' }}>
+													<div className="To" style={{ width: '30em', marginTop:'-1em' }}>
 														<Stack spacing={1} width='250px' backgraoundColor='white'>
 															<Autocomplete
 																disablePortal
@@ -263,7 +263,7 @@ const ShowAvSeat = () => {
 												<Box component="form"
 
 													sx={{
-														'& > :not(style)': { m: 1, width: '74ch', marginLeft: '1em' },
+														'& > :not(style)': { m: 1, width: '72ch', marginLeft: '0em' },
 													}}
 												>
 													<LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -273,14 +273,6 @@ const ShowAvSeat = () => {
 														/>
 													</LocalizationProvider>
 												</Box>
-												{/* <span className="text" style={{ color: 'teal' }}>Date Details</span>
-												<input type="date" name="Date"
-													id="Date" placeholder="Date " required
-													value={form.Date}
-													onChange={updateForm}
-													className='input'
-													style={{ width: '640px', opacity: '0.5', color: 'black', border: '1px black solid' }}
-												/> */}
 											</div>
 										</div>
 									</div>
@@ -307,6 +299,7 @@ const ShowAvSeat = () => {
 									<figure className="icon"><img src="https://i.ibb.co/dM8cwj6/recent-search.png" alt='btn' /></figure>
 									<span className="text">Recent search</span>
 								</div>
+								{/* Retrieve resulted data from search */}
 								{Data[0] ?
 									<div className="screen-home__rs-wrap">
 										<ul className="screen-home__rs-row">
@@ -336,31 +329,9 @@ const ShowAvSeat = () => {
 													disableRowSelectionOnClick
 												/>
 											</Box>
-											{/* {Data.map((item, i) =>
-												<li className="screen-home__rs-col">
-													<div className="screen-homers-from-to">
-														<span>{item.DepartingCity}</span>
-														<span className="screen-home__rs-arrow"></span>
-														<span>{item.DestinationCity}</span>
-													</div>
-													<div className="screen-homers-from-to">
-														<span>{item.plateNumber}</span>
-													</div>
-													<div className="screen-homers-from-to">
-														<span>{item.Time}</span>
-														<span className="screen-home__rs-arrow"></span>
-														<span>{item.Arriv_Time}</span>
-													</div>
-													<div className="screen-homers-from-to">
-														<span>{item.seatNumber}</span>
-													</div>
-													<div className="screen-home__rs-date" style={{marginTop:'1em'}}>{item.Date}</div>
-													
-												</li>
-											)} */}
 										</ul>
 									</div>
-									: <>{dates ? 
+									: <>{dates ?
 										<Stack sx={{ width: '100%' }} spacing={2}>
 											<Alert style={{ color: 'gold' }} serverity="info">No Available Trip</Alert>
 										</Stack>
