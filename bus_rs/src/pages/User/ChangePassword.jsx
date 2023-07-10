@@ -40,7 +40,7 @@ const ChangePassword = () => {
 	const navigate = useNavigate();
 	// Get Email from Logged User
 	let email;
-	email = users[0].email;
+	email = users.email;
 	// This function will handle the submission. that change password by using Logged Email
 	async function onSubmit(e) {
 		e.preventDefault();

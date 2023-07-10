@@ -45,7 +45,7 @@ function Signup() {
         }
     }, [])
 	let email;
-	email = users[0].email;
+	email = users.email;
 	// Fetch User Data from db for validation 
 	async function getUserData() {
 		const formval = { email };
