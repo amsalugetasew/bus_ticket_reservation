@@ -4,6 +4,18 @@ body {
   // padding-top: 1.5em;
   // padding-bottom: 3em;
 }
+MenuItem{
+  border: solid 1px transparent;
+  padding: 1em;
+  letter-spacing: normal;
+  list-style: none;
+  text-decoration: none;
+  color: #000;
+
+  :hover {
+    color: #FFf;
+  }
+}
 
 nav {
   background-color: #ffffff;
@@ -33,7 +45,7 @@ nav {
 
     }
 
-    a {
+    MenuItem, a {
       border: solid 1px transparent;
       padding: 1em;
       letter-spacing: normal;
