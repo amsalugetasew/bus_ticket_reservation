@@ -190,12 +190,14 @@ const ashowTime = ahour.toString() +':'+ aminute.toString()
       getSingleTrip(id);
     }
   }, [id]);
+
   const getSingleTrip = async (id) => {
     const response = await axios.get(`http://localhost:8000/trip/${id}`);
     if (response.status === 200) {
       setForm({ ...response.data })
     }
   }
+  // window.alert(form.seatNumber)
   // Code for Editting existing data
   const handleEdit = async (id) => {
     const newBus = { ...form };
@@ -300,7 +302,8 @@ const ashowTime = ahour.toString() +':'+ aminute.toString()
                               name='plateNumber'
                               value={PlateNumber}
                               label="Plate Number"
-                              onMouseLeave={getSingleRecords}
+                              // onMouseLeave={getSingleRecords}
+                              onSelect={getSingleRecords}
                               onChange={handlePlate}
                             >
                               <MenuItem value="">

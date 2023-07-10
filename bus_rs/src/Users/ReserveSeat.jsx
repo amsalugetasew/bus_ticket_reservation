@@ -6,6 +6,10 @@ import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import { Stack } from '@mui/material';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 const ReserveSeat = () => {
   const [form, setForm] = useState({
     firstName: "",
@@ -17,18 +21,18 @@ const ReserveSeat = () => {
     phoneNumber: "",
     action: ""
   })
+  const [genders, setGenders] = useState('');
+  const handleGender = (event) => {
+    setGenders(event.target.value);
+  };
   const [formError, setFormError] = useState("");
   const [success, setSuccess] = useState("")
-  // const updateForm = ({ currentTarget: input }) => {
-  //   setForm({ ...form, [input.name]: input.value });
-  //   setFormError("");
-  //   setSuccess("");
-  // };
   const handleChange = ({ currentTarget: input }) => {
 		setForm({ ...form, [input.name]: input.value });
 		setFormError("");
     setSuccess("");
 	};
+  form.gender = genders
   const { id } = useParams();
   async function onSubmit(e) {
     e.preventDefault();
@@ -121,6 +125,22 @@ const ReserveSeat = () => {
 											value={form.phoneNumber}
 											onChange={handleChange}
 										/>
+                    <FormControl sx={{ m: 1, minWidth: 120, width: '45ch' }}>
+                            <InputLabel id="demo-simple-select-error-label">Gender</InputLabel>
+                            <Select
+                              labelId="demo-simple-select-error-label"
+                              id="demo-simple-select-error"
+                              value={genders}
+                              label="Gender"
+                              onChange={handleGender}
+                            >
+                              <MenuItem value="">
+                                <em>None</em>
+                              </MenuItem>
+                              <MenuItem value="Male">Male</MenuItem>
+                              <MenuItem value="Female">Female</MenuItem>
+                            </Select>
+                          </FormControl>
 										<TextField
 											sx={{ m: 1, width: '45ch' }}
 											id="outlined-basic"
