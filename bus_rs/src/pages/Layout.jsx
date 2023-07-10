@@ -33,7 +33,7 @@ const Layout = () => {
                   <Link to="/search"><BiTrip id="icon" /> Trip Info</Link>
                 </li>
                 <li><Link  to="reserve">reserv</Link></li>
-                <li><Link to="Cancel_Trip"><FcCancel id='icon'/>Cancel Trip</Link> </li>
+                <li><Link to="Cancel_Trip" ><FcCancel id='icon'/>Cancel Trip</Link> </li>
                 <li><Link to="signin"><MdLogin id="icon" />Sign In</Link></li>
 
               </ul>

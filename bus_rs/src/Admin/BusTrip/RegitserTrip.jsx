@@ -423,8 +423,8 @@ const ashowTime = ahour.toString() +':'+ aminute.toString()
                           style={{ width: '670px', opacity: '0.5', color: 'black', border: '1px black solid' }}
                         /> */}
                       </div>
-                        <div  id='flex'style={{width:'80ch'}}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs} width='36ch' marginRight='2.6em' marginLeft='1em'>
+                        <div  id='flex'style={{width:'180ch', marginLeft:'1.5em'}}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs} width='46ch' marginRight='2.6em' marginLeft='1em'>
                         <DemoContainer components={['TimePicker']} >
                           <TimePicker label="Start Time"
                           
@@ -432,10 +432,11 @@ const ashowTime = ahour.toString() +':'+ aminute.toString()
                           />
                         </DemoContainer>
                       </LocalizationProvider>
+                      <span style={{marginLeft:'1em', marginRight:'1em'}}></span>
                       <Box>
-                      <LocalizationProvider dateAdapter={AdapterDayjs} >
-                        <DemoContainer components={['TimePicker']} width='60ch'>
-                          <TimePicker label="Arrival Time"
+                      <LocalizationProvider dateAdapter={AdapterDayjs} style={{width:'70ch'}}>
+                        <DemoContainer components={['TimePicker']} width='100ch'>
+                          <TimePicker label="Arrival Time" width='70ch'
                             selected={atimes} onChange={times => setATimes(times)}
                           />
                         </DemoContainer>

@@ -46,11 +46,11 @@ function App() {
         <Route path="/Admin" element={<AdminLayout />}>
         <Route path="user/:email" element={<ShowAvSeat />} />
         <Route path="reserve/:email" element={<Resrvation />} />
-        <Route path="changePassword/:email" element={<ChangePassword />} />
+        <Route path="changePassword" element={<ChangePassword />} />
         <Route path="Signup/:email" element={<Signup />} />
         <Route path="Signup" element={<Signup />} />
           <Route path="Bus_reg/:email" element={<RegisterBus />} />
-          <Route path="Available/seat/:email" element={<ShowAvSeat />} />
+          <Route path="Available/seat" element={<ShowAvSeat />} />
           <Route path="Bus_reg/:id" element={<RegisterBus />} />
           <Route path="Bus_reg" element={<RegisterBus />} />
           <Route path ="Bus_list" element={<BusList/>}/>

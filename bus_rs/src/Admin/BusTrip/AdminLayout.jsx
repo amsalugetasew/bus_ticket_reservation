@@ -20,13 +20,13 @@ const AdminLayout = () => {
                         <nav>
                             <ul>
                                 <li>
-                                    <Link to={`/Admin/Available/seat/${email}`}> <GiCarSeat size='1rem' /> Seats Information</Link>
+                                    <Link to='/Admin/Available/seat/'> <GiCarSeat size='1rem' id='icon' /> Seats Information</Link>
                                 </li>
                                 <li>
-                                    <Link to={`/Admin/Bus_reg/${email}`}> <FaBusAlt size='1rem' />Add Bus</Link>
+                                    <Link to='/Admin/Bus_reg/'><FaBusAlt size='1rem' id='icon' />Add Bus</Link>
                                 </li>
                                 <li>
-                                    <Link to={`/Admin/Trip_reg/${email}`}><BiTrip size={'1em'} marginRight='0.6em'/> Add Trip</Link>
+                                    <Link to='/Admin/Trip_reg/'><BiTrip size={'1em'} id='icon'/> Add Trip</Link>
                                 </li>
                                 <li> <Link to="#" id='admins'>
                                     Profile
@@ -34,10 +34,10 @@ const AdminLayout = () => {
                                     </Link>
                                     <div id='sub-menu'>
                                         <ul>
-                                            <li><Link to='/Admin/Signup/'> Create User</Link></li>
-                                            <li><Link to={`/Admin/Signup/${email}`}> Edit User</Link></li>
-                                            <li><Link to={`/Admin/changePassword/${email}`}> <BiEditAlt size={'1em'} />Change Password </Link></li>
-                                            <li><Link to="/Signin"><BiLogOutCircle size='1em' /> Logout</Link></li>
+                                            <li><Link to='/Admin/Signup/'> <FaRegUser id='icon' size={'1em'}/>Create User</Link></li>
+                                            <li><Link to='/Admin/Signup/'><BiEditAlt id='icon' size={'1em'} /> Edit User</Link></li>
+                                            <li><Link to='/Admin/changePassword/'> <BiEditAlt id='icon' size={'1em'} />Change Password </Link></li>
+                                            <li><Link to="/Signin"><BiLogOutCircle id='icon' size='1em' /> Logout</Link></li>
                                         </ul>
                                     </div>
                                 </li>
