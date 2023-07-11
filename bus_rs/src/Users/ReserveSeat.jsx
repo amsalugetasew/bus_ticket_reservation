@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import {useParams } from 'react-router-dom';
-import './User.scss'
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';

@@ -5,7 +5,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import Cryptr from 'cryptr';
 
-// Bus Model
+// User Model
 var UserSchema = mongoose.Schema({
     firstName: String,
     lastName: String,
@@ -61,7 +61,6 @@ export const findUser = (req, res) => {
 export const login = (req, res) => {
     let userEmail = req.body.email;
     let userPassword = req.body.password
-    // console.log(userEmail,req.body.password)
     const cryptr = new Cryptr("yoursecretkey");
     var decPassword = "";
     User.find({ email: userEmail }).exec()

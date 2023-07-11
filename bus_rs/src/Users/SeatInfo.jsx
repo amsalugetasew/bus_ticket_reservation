@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import '../Admin/BusTrip/Bus_style.scss'
-import './User.scss'
 const SeatInfo = () => {
   const [Data, setData] = useState([]);
   const [form, setForm] = useState({

@@ -3,6 +3,7 @@ import Contacts from '../pages/Image/contact.png'
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
+import axios from 'axios';
 const Contact = () => {
     const [form, setForm] = useState({
 		fullName: "",
@@ -11,16 +12,28 @@ const Contact = () => {
 		coment: ""
 	})
 	const [formError, setFormError] = useState("");
-	// const updateForm = ({ currentTarget: input }) => {
-	// 	setForm({ ...form, [input.name]: input.value });
-	// 	setFormError("")
-	// };
+	const [formSuccess, setFormSuccess] = useState("");
 	const handleChange = ({ currentTarget: input }) => {
 		setForm({ ...form, [input.name]: input.value });
-		setFormError("")
-	};
-	// setFormError('form.fullName')
+		setFormError("");
+		setFormSuccess("");
 
+	};
+	// Handle Contact Submit
+	async function onSubmit(e) {
+		e.preventDefault();
+		const newContact = { ...form };
+		axios.post('http://localhost:8000/contact/add', newContact)
+			.then(function (res) {
+				if (res.data === "Incorrect Contact Detail") {
+					console.log(res.data)
+					setFormError(res.data)
+				}
+				else {
+					setFormSuccess("Submitted Successfully Thanks")
+				}
+			})
+	}
 	return (
 		<div className="main" >
 			<main className="app" >
@@ -80,13 +93,16 @@ const Contact = () => {
 										<div className="screen-home__bus-page" id="buspage">
 											<figure className="screen-home__bus-arrow-wrap">
 												<img 
-												// onClick={onSubmit} 
+												onClick={onSubmit} 
 												src="https://i.ibb.co/nQ4khG8/arrow.png" alt='btn' />
 											</figure>
 										</div>
 									</div>
 									{formError &&
-											<Alert style={{marginLeft:'-25em', marginBottom:'5em', color:'red'}} severity='error'>({formError})</Alert>
+											<Alert style={{marginLeft:'0em', marginBottom:'5em', color:'red'}} severity='error'>({formError})</Alert>
+										}
+										{formSuccess &&
+											<Alert style={{marginLeft:'0em', marginBottom:'5em', color:'teal'}} severity='success'>({formSuccess})</Alert>
 										}
 								</form>
 							</div>

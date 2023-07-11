@@ -1,10 +1,9 @@
-import './App.scss'
 import bus from './Image/golden_bus.jfif'
 import seat from './Image/seat.jpg'
 import { Link } from "react-router-dom";
 const About = () => {
   return (
-    <div className="background-Img-home">
+    <div className="fcontainer">
     <div className="row">
     <div className="col-2">
         <img src={bus} alt="bus" />

@@ -2,7 +2,7 @@ import bus from './Image/golden_bus.jfif'
 import { Link } from "react-router-dom";
 const Home = () => {
   return (
-    <div className="background-Img-home">
+    <div className="fcontainer">
       <div className="row">
         <div className="col-2">
           <h1>Cross-City Bus Ticket <br />Reservation System!</h1>

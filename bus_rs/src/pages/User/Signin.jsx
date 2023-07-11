@@ -1,10 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-// import { CiLock } from 'react-icons/ci';
-// import { FaRegUser } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-// import Members from '../Image/members.jfif'
-// import Member from '../Image/member.jfif'
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import AccountCircle from '@mui/icons-material/AccountCircle';
