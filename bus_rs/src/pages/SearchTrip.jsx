@@ -11,8 +11,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Alert from '@mui/material/Alert';
-// import { DateField } from '@mui/x-date-pickers';
-// import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 const City = [
 	{
 		label: "City",
@@ -112,7 +110,6 @@ const SearchTrip = () => {
 	};
 
 	const columns = [
-		{ field: '_id', headerName: 'ID', width: 180, editable: true },
 		{
 			field: 'plateNumber',
 			headerName: 'Plate Number',
@@ -266,7 +263,7 @@ const SearchTrip = () => {
 									<div className="screen-home__rs-wrap">
 										<ul className="screen-home__rs-row">
 											<Box sx={{
-												height: 400, width: '100%',
+												height: 200, width: '100%',
 												'& .actions': {
 													color: 'text.secondary',
 												},

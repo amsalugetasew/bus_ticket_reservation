@@ -302,8 +302,8 @@ const ashowTime = ahour.toString() +':'+ aminute.toString()
                               name='plateNumber'
                               value={PlateNumber}
                               label="Plate Number"
-                              // onMouseLeave={getSingleRecords}
-                              onSelect={getSingleRecords}
+                              onMouseLeave={getSingleRecords}
+                              // onSelect={getSingleRecords}
                               onChange={handlePlate}
                             >
                               <MenuItem value="">
@@ -363,44 +363,11 @@ const ashowTime = ahour.toString() +':'+ aminute.toString()
                           </div>
                         </div>
                       </div>
-                      {/* <div className="input-wrap" >
-                        <div className="inside-wrap" id='flex'>
-                          <div className="rotate-btn" >
-                            <figure style={{ marginLeft: '-21em'}}>
-                              <img src="https://i.ibb.co/HPBrQkn/rotate-btn.png" alt='rt' />
-                            </figure>
-                          </div>
-                          <div className="from" style={{ marginTop: '-0.5em' }}>
-                            <span className="inside-lable">From</span>
-                            <select name='DepartingCity' id='DepartingCity'
-                              className='input'
-                              value={form.DepartingCity}
-                              onChange={updateForm}
-                            >
-                              Trip Title
-                              {City.map((option) => (
-                                <option className='inputs' value={option.value}>{option.label}</option>))}
-                            </select>
-                          </div>
-                          <div className="To" style={{ marginLeft:'2em'}}>
-                            <span className="inside-lable">To</span>
-                            <select name='DestinationCity' id='DestinationCity'
-                              className='input'
-                              value={form.DestinationCity}
-                              onChange={updateForm}
-                            >
-                              Trip Title
-                              {City.map((option) => (
-                                <option className='inputs' value={option.value}>{option.label}</option>))}
-                            </select>
-                          </div>
-                        </div>
-                      </div> */}
                       <div className="To" style={{marginBottom: '1em' }}>
                         <Box component="form"
 
                           sx={{
-                            '& > :not(style)': { m: 1, width: '74ch', marginLeft:'1em' },
+                            '& > :not(style)': { m: 1, width:'74ch',  marginLeft:'1em' },
                           }}
                         >
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -410,23 +377,12 @@ const ashowTime = ahour.toString() +':'+ aminute.toString()
                             />
                           </LocalizationProvider>
                         </Box>
-                        {/* <div className="lable">
-                          <figure className="icon"><img src="https://i.ibb.co/7N5zdnc/calendar.png" alt='dt' /></figure>
-                          <span className="text">Date Details</span>
-                        </div>
-
-                        <input type="date" name="Date"
-                          id="Date" placeholder="Date " required
-                          value={form.Date}
-                          onChange={updateForm}
-                          className='input'
-                          style={{ width: '670px', opacity: '0.5', color: 'black', border: '1px black solid' }}
-                        /> */}
                       </div>
-                        <div  id='flex'style={{width:'180ch', marginLeft:'1.5em'}}>
+                        <div  id='flex'style={{ marginLeft:'1.5em'}}>
                         <LocalizationProvider dateAdapter={AdapterDayjs} width='46ch' marginRight='2.6em' marginLeft='1em'>
                         <DemoContainer components={['TimePicker']} >
                           <TimePicker label="Start Time"
+                          width = '46ch'
                           
                             selected={times} onChange={times => setTimes(times)}
                           />
@@ -434,38 +390,14 @@ const ashowTime = ahour.toString() +':'+ aminute.toString()
                       </LocalizationProvider>
                       <span style={{marginLeft:'1em', marginRight:'1em'}}></span>
                       <Box>
-                      <LocalizationProvider dateAdapter={AdapterDayjs} style={{width:'70ch'}}>
-                        <DemoContainer components={['TimePicker']} width='100ch'>
+                      <LocalizationProvider dateAdapter={AdapterDayjs} >
+                        <DemoContainer components={['TimePicker']}>
                           <TimePicker label="Arrival Time" width='70ch'
                             selected={atimes} onChange={times => setATimes(times)}
                           />
                         </DemoContainer>
                       </LocalizationProvider>
                       </Box>
-                      
-                          {/* <div className="rotate-btn" >
-                            <figure style={{ marginLeft: '-21em' }}>
-                              <img src="https://i.ibb.co/HPBrQkn/rotate-btn.png" alt='rt' />
-                            </figure>
-                          </div>
-                          <div className="from" style={{ marginTop: '-2em' }}>
-                            <span className="inside-lable">From</span>
-                            <input name='Time' id='Time'
-                              className='input'
-                              type='Time'
-                              value={form.Time}
-                              onChange={updateForm}
-                            />
-                          </div>
-                          <div className="To" style={{ marginTop: '-1.5em', marginLeft: '2em' }}>
-                            <span className="inside-lable">To</span>
-                            <input name='Arriv_Time' id='Arriv_Time'
-                              type='Time'
-                              className='input'
-                              value={form.Arriv_Time}
-                              onChange={updateForm}
-                            />
-                          </div> */}
                       </div>
                     </div>
                   </div>

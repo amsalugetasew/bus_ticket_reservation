@@ -167,7 +167,7 @@ const ReserveSeat = () => {
 							<div className="screen-home__recent-search">
 								<div className="lable">
 									<figure className="icon"><img src="https://i.ibb.co/dM8cwj6/recent-search.png" alt='btn' /></figure>
-									<span className="text">Recent search</span>
+									<span className="text">Reservation Message</span>
 									{formError &&
                    <Stack sx={{ width: '100%' }} spacing={2}>
 											<Alert style={{color:'red'}} serverity="info">{formError}</Alert>
@@ -190,116 +190,6 @@ const ReserveSeat = () => {
 				</div>
 			</main>
 		</div>
-    // <div className='Acount'>
-    //   <div className='container'>
-    //     <div className="row">
-    //       <div className="col-md-3">
-    //       </div>
-    //       <div className="col-md-6 main">
-    //         <form onSubmit={onSubmit}>
-    //           <h1> Seat Reservation Page </h1>
-    //           <div className='both'>
-    //             <div className='left'>
-    //               <div className='both'>
-    //                 <label htmlFor="FName" className='box'>First Name</label>
-    //                 <input className="box"
-    //                   type="text" name="firstName" id="firstName"
-    //                   placeholder="First Name " required
-    //                   value={form.firstName}
-    //                   onChange={updateForm}
-    //                 />
-    //               </div>
-    //               <div className='both'>
-    //                 <label htmlFor="MName" className='box'>Middle Name</label>
-    //                 <input className="box"
-    //                   type="text" name="middleName" id="middleName"
-    //                   placeholder="Middle Name " required
-    //                   value={form.middleName}
-    //                   onChange={updateForm}
-    //                 /></div>
-    //               <div className='both'>
-    //                 <label htmlFor="LName" className='box'>Last Name</label>
-    //                 <input className="box"
-    //                   type="text" name="lastName" id="lastName"
-    //                   placeholder="Last Name " required
-    //                   value={form.lastName}
-    //                   onChange={updateForm}
-    //                    />
-    //               </div>
-    //               <div className='both'>
-    //                 <label htmlFor="Age" className='box'>Passanger Age</label>
-    //                 <input className="box" type="number" name="age"
-    //                   id="age" placeholder="Age" required
-    //                   value={form.age}
-    //                   onChange={updateForm}
-    //                 /></div>
-                  
-                  
-    //             </div>
-    //             <div className='right'>
-    //               <div className='both'>
-    //                 <label htmlFor="Gender" className='box'>Gender</label>
-    //                 <select className='box' name='gender' id='gender' value={form.gender} onChange={updateForm}>
-    //                   <option value={''}>Gender</option>
-    //                   <option value={'Male'}>Male</option>
-    //                   <option value={'Female'}>Female</option>
-    //                 </select>
-    //               </div>
-    //               <div className='both'>
-    //                 <label htmlFor="Email" className='box'>Email </label>
-    //                 <input className="box" type="email" name="email"
-    //                   id="email" placeholder="E-mail " required
-    //                   value={form.email}
-    //                   onChange={updateForm}
-    //                   // onChange={(e) => updateForm({ email: e.target.value })}
-    //                 /></div>
-    //               <div className='both'>
-    //                 <label htmlFor="Phone_no" className='box'>Phone</label>
-    //                 <input className="box" type="phone" name="phoneNumber"
-    //                   id="phoneNumber" placeholder="Phone Number " required
-    //                   value={form.phoneNumber}
-    //                   onChange={updateForm}
-    //                   // onChange={(e) => updateForm({ phoneNumber: e.target.value })}
-    //                 />
-    //               </div>
-    //               {/*<div className='both'>
-    //                 <label htmlFor="Seat_no" className='box'>Seat</label>
-    //                 <input className="box" type="text" name="Seat_no"
-    //                   id="Seat_no" placeholder="Seat Number " required
-    //                   value={form.Seat_no}
-    //                   onChange={(e) => updateForm({ Seat_no: e.target.value })}
-    //                 />
-    //               </div>
-    //                <div className='both'>
-    //                 <label htmlFor="Arrival_city" className='box'>Arrival City</label>
-    //                 <select className='box' name='Destination' id='Destination'>
-    //                   <option value={''}>Arrival City</option>
-    //                   <option value={'Addis Ababa'}>Addis Ababa</option>
-    //                   <option value={'Gondar'}>Gondar</option>
-    //                 </select>
-    //               </div>
-    //               <div className='both'>
-    //                 <label htmlFor="ATime" className='box'>Arrival Time</label>
-    //                 <input className="box" type="time" name="ATime"
-    //                   id="ATime" placeholder="Expected Arrival Time " required
-    //                   value={form.ATime}
-    //                   onChange={(e) => updateForm({ ATime: e.target.value })}
-    //                 />
-    //               </div> */}
-    //             </div>
-    //           </div>
-    //           {formError && <div className="error_msg" id='error_msg'>{formError}</div>}
-    //           {success && <div className="success_msg" id='success_msg'>Reserved Successfully 
-    //           <div>{form.firstName} Your <b><i>PSR Code</i></b> is: <b><u><i><span>{success}</span></i></u></b></div>
-    //           <div>For More use your <b><i>Departing time, Phone Number, and PSR code</i></b></div>
-    //           </div>}
-    //           <input className='submit' disabled = {success? true : false} type="submit" id="submitDetails"
-    //             name="submitDetails" value="Reserve Seat" />
-    //         </form>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   )
 }
 

@@ -39,7 +39,7 @@ function RegisterBus() {
             setFormError(res.data)
           }
           else {
-            navigate("/Admin/bus_list");
+            setSuccess('Bus Recorded successfully');
           }
         })
     }
@@ -168,7 +168,7 @@ function RegisterBus() {
 								}
                 {success &&
 									<Stack sx={{ width: '100%' }} spacing={2}>
-										<Alert style={{ color: 'teal' }} serverity="success">Trip Reserved Successfully with <b><i>Trip Name:</i></b> <b><u>{success}</u></b></Alert>
+										<Alert style={{ color: 'teal' }} serverity="success"><b><u>{success}</u></b></Alert>
 									</Stack>
 								}      
                 </div>                

@@ -30,31 +30,29 @@ export const getUser = (req, res, next) => {
         .catch(err => next(err));
 }
 
-export const chnangeUserPassword = (req, res, next) =>{
+export const chnangeUserPassword = (req, res, next) => {
     let userEmail = req.body.email;
     let password = req.body.password
     User.find({ email: userEmail }).exec()
-    .then(function (user) 
-    {
+        .then(function (user) {
             let userToEdit = user[0]._id
-                const cryptr = new Cryptr("yoursecretkey");
-                var encpassword = cryptr.encrypt(req.body.password);
-                User.findByIdAndUpdate({ _id: userToEdit },
-                    {
-                        password: encpassword
-                    })
-                    .then(editedUser => res.json(editedUser))
-                    .catch(err => next(err))
-    });
-    
+            const cryptr = new Cryptr("yoursecretkey");
+            var encpassword = cryptr.encrypt(req.body.password);
+            User.findByIdAndUpdate({ _id: userToEdit },
+                {
+                    password: encpassword
+                })
+                .then(editedUser => res.json(editedUser))
+                .catch(err => next(err))
+        });
+
 }
 export const findUser = (req, res) => {
     let userEmail = req.body.email;
-    
+
     User.find({ email: userEmail }).exec()
-        .then(function (user) 
-        {
-                res.send(user)
+        .then(function (user) {
+            res.send(user)
         });
 }
 
@@ -79,7 +77,7 @@ export const login = (req, res) => {
 }
 export const createUser = (req, res) => {
     let userEmail = req.body.email
-    
+
     User.find({ email: userEmail }).exec()
         .then(function (user) {
             if (user.length !== 0) {
@@ -113,16 +111,21 @@ export const deleteUser = (req, res) => {
         .then(deletedUser => res.send(deletedUser + "Deleted Successfully"))
         .catch(err => next(err));
 }
-export const editUser = (req, res) => {
-    const userToEdit = req.params.id;
-    User.findByIdAndUpdate({ _id: userToEdit },
-        {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            role: req.body.role,
-            email: req.body.email,
-            password: req.body.password
-        })
-        .then(editedUser => res.json(editedUser))
-        .catch(err => next(err))
+export const editUser = (req, res, next) => {
+    let userEmail = req.body.email;
+    // console.log(userEmail)
+    User.find({ email: userEmail }).exec()
+        .then(function (user) {
+            let userToEdit = user[0]._id
+            const cryptr = new Cryptr("yoursecretkey");
+            var encpassword = cryptr.encrypt(req.body.password);
+            User.findByIdAndUpdate({ _id: userToEdit },
+                {
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    password: encpassword
+                })
+                .then(editedUser => res.json(editedUser))
+                .catch(err => next(err))
+        });
 }

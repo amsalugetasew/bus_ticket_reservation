@@ -22,6 +22,7 @@ import SingleSeat from "./Admin/BusTrip/SingleSeat";
 import ShowAvSeat from "./Admin/BusTrip/ShowAvSeat";
 import ChangePassword from "./pages/User/ChangePassword";
 import SearchTrip from "./pages/SearchTrip";
+import EditUser from "./pages/User/EditUser";
 function App() {
   return (
     <BrowserRouter>
@@ -32,7 +33,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="Signin" element={<Signin />} />
-          <Route path="Signup" element={<Signup />} />
+          {/* <Route path="Signup" element={<Signup />} /> */}
           <Route path="UserList" element={<UserList/>}/>
           <Route path="search" element={<SearchTrip/>}/>
           <Route path="Cancel_Trip" element={<CancelReservation />} />
@@ -44,7 +45,7 @@ function App() {
         <Route path="/Admin" element={<AdminLayout />}>
         <Route path="user/" element={<ShowAvSeat />} />
         <Route path="changePassword" element={<ChangePassword />} />
-        <Route path="Signup/:email" element={<Signup />} />
+        <Route path="EditUser" element={<EditUser />} />
         <Route path="Signup" element={<Signup />} />
           <Route path="Bus_reg/:email" element={<RegisterBus />} />
           <Route path="Available/seat" element={<ShowAvSeat />} />

@@ -11,7 +11,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Alert from '@mui/material/Alert';
-// import { Stack } from '@mui/material'
 const CancelReservation = () => {
 	const [dates, setDates] = useState("")
 	const [Data, setData] = useState([]);
@@ -73,7 +72,6 @@ const CancelReservation = () => {
 
 
 	const columns = [
-		{ field: '_id', headerName: 'ID', width: 180, editable: true },
 		{
 			field: 'plateNumber',
 			headerName: 'Plate Number',
@@ -197,7 +195,7 @@ const CancelReservation = () => {
 									<div className="screen-home__rs-wrap">
 										<ul className="screen-home__rs-row">
 											<Box sx={{
-												height: 400, width: '100%',
+												height: 280, width: '100%',
 												'& .actions': {
 													color: 'text.secondary',
 												},

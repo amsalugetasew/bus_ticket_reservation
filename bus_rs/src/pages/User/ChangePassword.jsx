@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import "./Style.scss"
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
@@ -12,19 +11,27 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import { VisibilityOff } from '@mui/icons-material';
 const ChangePassword = () => {
-	const [form, setForm] = useState({
-		email: "",
-		password: "",
-		cpassword: ""
-	})
 	// Fetch stored Data during login
 	const [users, setUsers] = useState([])
+	const [formSuccess, setFormSuccess] = useState("");
+	const [formError, setFormError] = useState("");
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('User'))
         if (user) {
             setUsers(user)
         }
     }, [])
+	let emails
+    if(users[0]){
+        emails= users[0].email;
+    }
+	// console.log(emails)
+	const [form, setForm] = useState({
+		email: emails,
+		password: "",
+		cpassword: ""
+	})
+	
 	const [showPassword, setShowPassword] = useState(false);
 	const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -35,16 +42,17 @@ const ChangePassword = () => {
 	const handleChange = ({ currentTarget: input }) => {
 		setForm({ ...form, [input.name]: input.value });
 		setFormError("")
+		setFormSuccess("");
 	};
-	const [formError, setFormError] = useState("");
-	const navigate = useNavigate();
+	form.email = emails
+	// console.log(form.email)
+	
 	// Get Email from Logged User
-	let email;
-	email = users.email;
+	
 	// This function will handle the submission. that change password by using Logged Email
 	async function onSubmit(e) {
 		e.preventDefault();
-		form.email = email;
+		// form.email = email;
 		if (form.password === form.cpassword) {
 			const newPerson = { ...form };
 			axios.post('http://localhost:8000/change/password', newPerson)
@@ -55,7 +63,7 @@ const ChangePassword = () => {
 					}
 					else {
 
-						navigate(`/Admin/user/${res.data}`)
+						setFormSuccess('Password Changed sucessfully')
 					}
 				})
 		}
@@ -76,7 +84,7 @@ const ChangePassword = () => {
 								<Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
 																						
 										<FormControl sx={{ m: 1, width: '45ch' }} variant="outlined">
-											<InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+											<InputLabel htmlFor="outlined-adornment-password">New Password</InputLabel>
 											<OutlinedInput
 												id="outlined-adornment-password"
 												type={showPassword ? 'text' : 'password'}
@@ -99,7 +107,7 @@ const ChangePassword = () => {
 											/>
 										</FormControl>
 										<FormControl sx={{ m: 1, width: '45ch' }} variant="outlined">
-											<InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+											<InputLabel htmlFor="outlined-adornment-password">Confirmation Password</InputLabel>
 											<OutlinedInput
 												id="outlined-adornment-password"
 												type={showPassword ? 'text' : 'password'}
@@ -172,6 +180,9 @@ const ChangePassword = () => {
 									</div>
 									{formError &&
 											<Alert style={{marginLeft:'-25em', marginBottom:'5em', color:'red'}} severity='error'>({formError})</Alert>
+										}
+										{formSuccess &&
+											<Alert style={{marginLeft:'-1em', marginTop:'2em', color:'teal'}} severity='success'>({formSuccess})</Alert>
 										}
 								</form>
 							</div>

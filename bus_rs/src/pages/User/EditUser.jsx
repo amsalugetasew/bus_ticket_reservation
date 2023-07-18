@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import axios from "axios";
 import Alert from '@mui/material/Alert';
@@ -12,58 +12,67 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-function Signup() {
+function EditUser() {
 	const [showPassword, setShowPassword] = useState(false);
 	const handleClickShowPassword = () => setShowPassword((show) => !show);
 
 	const handleMouseDownPassword = (event) => {
 		event.preventDefault();
 	};
+     // Fetch stored Data during login
+	const [users, setUsers] = useState([])
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('User'))
+        if (user) {
+            setUsers(user)
+        }
+    }, [])
+    // Get Email from Logged 
+    let emails
+    if(users[0]){
+        emails= users[0].email;
+    }
 	const [form, setForm] = useState({
 		firstName: "",
 		lastName: "",
-		role: "",
 		email: "",
 		password: "",
 		cpassword: ""
 	})
-	const [error, setError] = useState("");
+	const [formSuccess, setFormSuccess] = useState("");
 	const [formError, setFormError] = useState("");
 	const handleChange = ({ currentTarget: input }) => {
 		setForm({ ...form, [input.name]: input.value });
-		setError("");
+		setFormSuccess("");
 		setFormError("");
 	};
-	
-	
-	// Handle submit to signup user
-	const handleSubmit = async (e) => {
+   
+	form.email = emails;
+	// console.log(form.email)
+	// This function will handle the submission. that Edit User by using Logged Email
+	async function onSubmit(e) {
 		e.preventDefault();
-		form.role = 'Admin';
-		const newPerson = { ...form };
-		if (!isNaN(form.firstName)) {
-			setFormError("First Name couldn't be number")
-		}
-		else if (form.password !== form.cpassword) {
-			setFormError("Password not matched")
-		}
-		else {
-			axios.post('http://localhost:8000/users/Add', newPerson)
+		if (form.password === form.cpassword) {
+			const editUser = { ...form };
+			axios.post('http://localhost:8000/Edit/User', editUser)
 				.then(function (res) {
-					window.alert(res.data)
-					if (res.data === "Email Alread exist") {
+					// window.alert(res.data)
+					if (res.data === "Incorrect Email") {
 						setFormError(res.data)
 					}
 					else {
-						setError(res.data)
+
+						setFormSuccess('User Edit Successfully')
 					}
 				})
-			// navigate("/Admin/Signup");
+		}
+		else {
+			setFormError("Password not match")
 		}
 
 	}
-
-	return (
+    // console.log(form)
+    return (
 		<div className="main" id='background-Img-contactt'>
 			<main className="app" id='background-Img-contacts'>
 				<div className="screen-wrap">
@@ -103,22 +112,6 @@ function Signup() {
 											variant="outlined"
 											name='lastName'
 											value={form.lastName}
-											onChange={handleChange}
-										/>
-										<TextField
-											sx={{ m: 1, width: '45ch' }}
-											id="outlined-basic"
-											label="Email"
-											InputProps={{
-												startAdornment: (
-													<InputAdornment position="start">
-														<AccountCircle />
-													</InputAdornment>
-												),
-											}}
-											variant="outlined"
-											name='email'
-											value={form.email}
 											onChange={handleChange}
 										/>
 										<FormControl sx={{ m: 1, width: '45ch' }} variant="outlined">
@@ -169,19 +162,20 @@ function Signup() {
 										</FormControl>
 
 									</Box>
+									
 									<div className="screen-home__submit-wrap">
 										<span className="line">
 										{formError &&
-											<Alert style={{marginLeft:'-1em', marginTop:'2em',  color:'red'}} severity='error'>{formError}</Alert>
+											<Alert style={{marginLeft:'-1em', marginTop:'2em',  color:'red'}} severity='error'>({formError})</Alert>
 										}
-										{error &&
-											<Alert style={{marginLeft:'-1em', marginTop:'2em', color:'teal'}} severity='success'>{error}</Alert>
+										{formSuccess &&
+											<Alert style={{marginLeft:'-1em', marginTop:'2em', color:'teal'}} severity='success'>({formSuccess})</Alert>
 										}
 										</span>
 										<div className="screen-home__bus-page" id="buspage">
 											<figure className="screen-home__bus-arrow-wrap">
 												<img
-													onClick={handleSubmit}
+													onClick={onSubmit}
 													src="https://i.ibb.co/nQ4khG8/arrow.png" alt='btn' />
 											</figure>
 										</div>
@@ -195,4 +189,4 @@ function Signup() {
 		</div>
 	)
 }
-export default Signup
+export default EditUser

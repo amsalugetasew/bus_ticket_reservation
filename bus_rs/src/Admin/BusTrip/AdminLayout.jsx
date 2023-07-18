@@ -41,6 +41,7 @@ const AdminLayout = () => {
           </div>
          <Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+      <Typography sx={{ minWidth: 100 }}></Typography>
         <Typography sx={{ minWidth: 100 }}>
         <Link to='/Admin/Available/seat/'> <GiCarSeat size='1rem' id='icon' /> Seats Information</Link>
           </Typography>
@@ -50,8 +51,7 @@ const AdminLayout = () => {
           <Typography sx ={{minWidth: 100}}>
           <Link to='/Admin/Trip_reg/'><BiTrip size={'1em'} id='icon' /> Add Trip</Link>
           </Typography>
-        <span style={{marginLeft:'5em'}}></span>
-        <Typography sx={{ minWidth: 100 }}></Typography>
+        
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
@@ -61,7 +61,7 @@ const AdminLayout = () => {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>{users[0] && users[0].firstName}</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}>G</Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -107,7 +107,7 @@ const AdminLayout = () => {
           <Avatar /> <Link to='/Admin/Signup/'> <FaRegUser id='icon' size={'1em'} />Add another account</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Avatar /> <Link to='/Admin/Signup/'><BiEditAlt id='icon' size={'1em'} /> Edit User</Link>
+          <Avatar /> <Link to='/Admin/EditUser/'><BiEditAlt id='icon' size={'1em'} /> Edit User</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
         <Link to='/Admin/changePassword/'> <BiEditAlt id='icon' size={'1em'} />Change Password </Link>

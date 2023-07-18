@@ -6,7 +6,7 @@ router.get("/user/fetch", getUseres);
 router.post("/users/Add", createUser);
 router.get("/user/:id", getUser);
 router.delete("/user/delete/:id", deleteUser);
-router.put("/user/edit/:id", editUser);
+router.post("/Edit/User", editUser);
 router.post("/users/login", login);
 router.post("/find/User", findUser);
 router.post("/change/password", chnangeUserPassword);
